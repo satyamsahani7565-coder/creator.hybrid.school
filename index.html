@@ -18,10 +18,9 @@
         .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001a33 100%); }
         #qrModal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; padding: 20px; }
         
-        /* टूल्स और एनिमेशन */
         .topper-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 10px 5px; scrollbar-width: none; -ms-overflow-style: none; }
         .topper-scroll::-webkit-scrollbar { display: none; }
-        .topper-img-box { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #fbbf24; overflow: hidden; background: #eee; margin-bottom: 5px; }
+        .topper-img-box { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #fbbf24; overflow: hidden; background: #f1f5f9; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .topper-img-box img { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
@@ -47,19 +46,18 @@
     </nav>
 
     <main class="p-5 max-w-lg mx-auto mb-12">
-        
         <div id="page-reg">
             <div class="glass-card p-5 rounded-[30px] mb-6 border-b-4 border-blue-600 shadow-lg">
-                <h3 class="text-center font-black text-[#003366] text-xs uppercase mb-4 tracking-widest"><i class="fas fa-star text-yellow-500 mr-2"></i> Our Pride Toppers <i class="fas fa-star text-yellow-500 ml-2"></i></h3>
+                <h3 class="text-center font-black text-[#003366] text-xs uppercase mb-4 tracking-widest"><i class="fas fa-star text-yellow-500 mr-2"></i> OUR PRIDE TOPPERS <i class="fas fa-star text-yellow-500 ml-2"></i></h3>
                 
-                <div class="flex items-center bg-blue-600 text-white p-3 rounded-2xl mb-4 shadow-md">
-                    <div class="w-16 h-16 rounded-xl border-2 border-yellow-400 overflow-hidden mr-4 bg-white">
-                        <img src="https://ui-avatars.com/api/?name=Anish+Sahani&background=white&color=003366&size=100" class="w-full h-full object-cover">
+                <div class="flex items-center bg-blue-600 text-white p-4 rounded-2xl mb-4 shadow-md">
+                    <div class="w-20 h-20 rounded-xl border-2 border-yellow-400 overflow-hidden mr-4 bg-white">
+                        <img src="https://i.ibb.co/LzNf8rX/Anish.jpg" class="w-full h-full object-cover" alt="Anish Sahani">
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-yellow-400">STAR OF CREATOR</p>
-                        <h4 class="text-lg font-black uppercase">Anish Sahani</h4>
-                        <p class="text-[10px] opacity-90">12th Class | 93.6% (Year 2023)</p>
+                        <p class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest">Star of Creator</p>
+                        <h4 class="text-xl font-black uppercase tracking-tight">Anish Sahani</h4>
+                        <p class="text-[11px] opacity-90">12th Class | 93.6% (Year 2023)</p>
                     </div>
                 </div>
 
@@ -166,28 +164,27 @@
         let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
         let tempPhoto = "";
 
-        // TOPPERS DATA (असली फोटो उपलब्ध होने तक API का इस्तेमाल किया है)
+        // TOPPERS DATA (Photos link)
         const toppersData = [
-            { name: "Shraddha", info: "10th | 90.16%", year: "2022", img: "https://ui-avatars.com/api/?name=Shraddha&background=fbbf24&color=fff" },
-            { name: "Satyam Maurya", info: "10th | 86%", year: "2022", img: "https://ui-avatars.com/api/?name=Satyam+Maurya&background=fbbf24&color=fff" },
-            { name: "Shardanand", info: "12th | 92.2%", year: "2023", img: "https://ui-avatars.com/api/?name=Shardanand&background=fbbf24&color=fff" },
-            { name: "Shukdev", info: "12th | 88.6%", year: "2023", img: "https://ui-avatars.com/api/?name=Shukdev&background=fbbf24&color=fff" },
-            { name: "Amit", info: "10th | 91%", year: "2023", img: "https://ui-avatars.com/api/?name=Amit&background=fbbf24&color=fff" },
-            { name: "Harshit Dubey", info: "10th | 89.3%", year: "2023", img: "https://ui-avatars.com/api/?name=Harshit+Dubey&background=fbbf24&color=fff" }
+            { name: "Shraddha", info: "10th | 90.16%", year: "2022", img: "https://via.placeholder.com/150?text=Shraddha" },
+            { name: "Satyam Maurya", info: "10th | 86%", year: "2022", img: "https://via.placeholder.com/150?text=Satyam" },
+            { name: "Shardanand", info: "12th | 92.2%", year: "2023", img: "https://via.placeholder.com/150?text=Shardanand" },
+            { name: "Shukdev", info: "12th | 88.6%", year: "2023", img: "https://via.placeholder.com/150?text=Shukdev" },
+            { name: "Amit", info: "10th | 91%", year: "2023", img: "https://via.placeholder.com/150?text=Amit" },
+            { name: "Harshit Dubey", info: "10th | 89.3%", year: "2023", img: "https://via.placeholder.com/150?text=Harshit" }
         ];
 
-        // RENDER TOPPERS (Fix: इसे सीधे कॉल किया गया है)
         function initToppers() {
             const container = document.getElementById('topper-gallery');
             if(!container) return;
             container.innerHTML = toppersData.map(t => `
-                <div class="flex flex-col items-center min-w-[90px] text-center">
-                    <div class="topper-img-box shadow-md">
-                        <img src="${t.img}">
+                <div class="flex flex-col items-center min-w-[100px] text-center">
+                    <div class="topper-img-box">
+                        <img src="${t.img}" onerror="this.src='https://via.placeholder.com/80?text=IMG'">
                     </div>
-                    <p class="text-[9px] font-black text-[#003366] uppercase leading-tight">${t.name}</p>
-                    <p class="text-[7px] font-bold text-slate-500">${t.info}</p>
-                    <p class="text-[6px] font-black text-white bg-red-500 rounded px-1 mt-1">${t.year}</p>
+                    <p class="text-[10px] font-black text-[#003366] uppercase leading-tight">${t.name}</p>
+                    <p class="text-[8px] font-bold text-slate-500">${t.info}</p>
+                    <p class="text-[7px] font-black text-white bg-red-500 rounded px-1.5 py-0.5 mt-1">${t.year}</p>
                 </div>
             `).join('');
         }
@@ -207,7 +204,6 @@
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
             const btn = document.getElementById('t-' + pageId);
             if(btn) btn.classList.add('active-tab');
-            if(pageId === 'panel') renderAdmin();
         }
 
         function changePage(pageId) {
