@@ -35,9 +35,9 @@
     </header>
 
     <nav class="mx-6 -mt-8 rounded-2xl shadow-2xl flex p-2 bg-white/80 backdrop-blur-md sticky top-4 z-50 border border-white">
-        <button onclick="showPage('reg')" id="t-reg" class="flex-1 py-3 rounded-xl font-bold text-[11px] active-tab transition-all">ADMISSION</button>
-        <button onclick="showPage('student')" id="t-student" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400 transition-all">MY CARD</button>
-        <button onclick="showPage('admin')" id="t-admin" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400 transition-all">ADMIN</button>
+        <button onclick="changePage('reg')" id="t-reg" class="flex-1 py-3 rounded-xl font-bold text-[11px] active-tab transition-all">ADMISSION</button>
+        <button onclick="changePage('student')" id="t-student" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400 transition-all">MY CARD</button>
+        <button onclick="changePage('admin')" id="t-admin" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400 transition-all">ADMIN</button>
     </nav>
 
     <main class="p-5 max-w-lg mx-auto mb-12">
@@ -93,7 +93,6 @@
                 </div>
                 <button onclick="studentLogin()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg hover:bg-emerald-700 transition-all">Generate My ID</button>
             </div>
-
             <div id="id-container" class="hidden flex flex-col items-center">
                 <div id="idCard">
                     <div class="gradient-bg p-5 text-white text-center">
@@ -161,6 +160,43 @@
         let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
         let tempPhoto = "";
 
+        // --- BRAIN OF NAVIGATION ---
+        function showPage(pageId) {
+            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
+            const targetPage = document.getElementById('page-' + pageId);
+            if(targetPage) targetPage.classList.remove('hidden');
+
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.add('text-slate-400'));
+            
+            const activeBtn = document.getElementById('t-' + pageId);
+            if(activeBtn) {
+                activeBtn.classList.add('active-tab');
+                activeBtn.classList.remove('text-slate-400');
+            }
+            if(pageId === 'panel') renderAdmin();
+        }
+
+        function changePage(pageId) {
+            showPage(pageId);
+            history.pushState({ page: pageId }, "", "#" + pageId);
+        }
+
+        window.onpopstate = function(event) {
+            if (event.state && event.state.page) {
+                showPage(event.state.page);
+            } else {
+                showPage('reg');
+            }
+        };
+
+        window.onload = function() {
+            const initialPage = window.location.hash.replace('#', '') || 'reg';
+            history.replaceState({ page: initialPage }, "", "#" + initialPage);
+            showPage(initialPage);
+        };
+        // ---------------------------
+
         function togglePass(id) {
             const el = document.getElementById(id);
             el.type = el.type === "password" ? "text" : "password";
@@ -177,15 +213,6 @@
                 }
                 reader.readAsDataURL(input.files[0]);
             }
-        }
-
-        function showPage(pageId) {
-            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById('page-' + pageId).classList.remove('hidden');
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
-            const btn = document.getElementById('t-' + pageId);
-            if(btn) btn.classList.add('active-tab');
-            if(pageId === 'panel') renderAdmin();
         }
 
         document.getElementById('regForm').onsubmit = function(e) {
@@ -213,12 +240,11 @@
             document.getElementById('qrModal').style.display = "none";
             document.getElementById('regForm').reset();
             
-            // Professional WhatsApp Alert
             const msg = `*CREATOR HYBRID ADMISSION*%0A------------------------%0A*Name:* ${window.activeStu.name}%0A*Class:* ${window.activeStu.class}%0A*UTR:* ${utr}%0A*Mobile:* ${window.activeStu.mobile}`;
             window.open(`https://wa.me/${ADMIN_WA}?text=${msg}`, '_blank');
             
             alert("Application Submitted Successfully!");
-            showPage('student');
+            changePage('student');
         }
 
         function studentLogin() {
@@ -244,7 +270,7 @@
         }
 
         function adminLogin() {
-            if(document.getElementById('adm_pass').value === MASTER_PASS) showPage('panel');
+            if(document.getElementById('adm_pass').value === MASTER_PASS) changePage('panel');
             else alert("Access Denied!");
         }
 
@@ -266,7 +292,7 @@
         }
 
         function deleteEntry(i) { if(confirm("Permanently delete this student?")) { db.splice(i,1); localStorage.setItem('ch_pro_db', JSON.stringify(db)); renderAdmin(); } }
-        function resetData() { if(confirm("Wipe entire database?")) { localStorage.clear(); db = []; showPage('admin'); } }
+        function resetData() { if(confirm("Wipe entire database?")) { localStorage.clear(); db = []; changePage('admin'); } }
     </script>
 </body>
 </html>
