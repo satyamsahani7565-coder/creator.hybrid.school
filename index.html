@@ -14,11 +14,18 @@
         .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
         .input-field { width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 16px; outline: none; transition: 0.3s; font-size: 14px; }
         .input-field:focus { border-color: #003366; ring: 4px rgba(0,51,102,0.1); }
+        #idCard { width: 320px; background: white; border-radius: 24px; overflow: hidden; border: 2px solid #003366; position: relative; }
         .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001a33 100%); }
-        
-        /* टॉपर सेक्शन का स्पेशल डिज़ाइन */
-        .topper-banner-img { width: 100%; border-radius: 20px; border: 3px solid #fbbf24; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         #qrModal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; padding: 20px; }
+        
+        .topper-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 10px 5px; scrollbar-width: none; -ms-overflow-style: none; }
+        .topper-scroll::-webkit-scrollbar { display: none; }
+        
+        .photo-frame { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #fbbf24; overflow: hidden; background: #fff; margin-bottom: 8px; }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .photo-frame-anish { width: 85px; height: 85px; border-radius: 12px; border: 3px solid #fbbf24; overflow: hidden; background: #fff; margin-right: 16px; }
+        .photo-frame-anish img { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
@@ -26,10 +33,9 @@
     <header class="gradient-bg text-white pt-10 pb-14 px-6 text-center rounded-b-[50px] shadow-2xl relative">
         <h1 class="text-4xl font-black tracking-tighter uppercase mb-1">Creator Hybrid</h1>
         <p class="text-yellow-400 text-[10px] font-bold uppercase tracking-[4px]">Elite Education Portal</p>
-        <p class="text-[10px] opacity-80 mt-2"><i class="fas fa-map-marker-alt mr-1"></i> Campierganj, Gorakhpur</p>
     </header>
 
-    <nav class="mx-6 -mt-8 rounded-2xl shadow-2xl flex p-1 bg-white/80 backdrop-blur-md sticky top-4 z-50 border border-white">
+    <nav class="mx-6 -mt-8 rounded-2xl shadow-2xl flex p-1 bg-white/80 backdrop-blur-md sticky top-4 z-50">
         <button onclick="changePage('reg')" id="t-reg" class="flex-1 py-3 rounded-xl font-bold text-[10px] active-tab">ADMISSION</button>
         <button onclick="changePage('student')" id="t-student" class="flex-1 py-3 rounded-xl font-bold text-[10px] text-slate-400">MY CARD</button>
         <button onclick="changePage('admin')" id="t-admin" class="flex-1 py-3 rounded-xl font-bold text-[10px] text-slate-400">ADMIN</button>
@@ -37,70 +43,66 @@
 
     <main class="p-5 max-w-lg mx-auto mb-12">
         <div id="page-reg">
-            <div class="mb-8">
-                <div class="flex items-center justify-center gap-2 mb-4">
-                    <i class="fas fa-crown text-yellow-500"></i>
-                    <h2 class="text-center font-black text-[#003366] text-sm uppercase tracking-widest">Our Pride Toppers</h2>
-                    <i class="fas fa-crown text-yellow-500"></i>
+            <div class="glass-card p-5 rounded-[30px] mb-6 border-b-4 border-blue-600 shadow-lg">
+                <h3 class="text-center font-black text-[#003366] text-xs uppercase mb-4 tracking-widest">OUR PRIDE TOPPERS</h3>
+                
+                <div class="flex items-center bg-blue-600 text-white p-4 rounded-2xl mb-4 shadow-md">
+                    <div class="photo-frame-anish">
+                        <img src="यहाँ_Anish_की_फोटो_का_Direct_Link_पेस्ट_करें" onerror="this.src='https://via.placeholder.com/85?text=AS'">
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest">Star of Creator</p>
+                        <h4 class="text-xl font-black uppercase tracking-tight">Anish Sahani</h4>
+                        <p class="text-[11px] opacity-90">12th Class | 93.6% (Year 2023)</p>
+                    </div>
                 </div>
-                <img src="https://i.ibb.co/LzNf8rX/Anish.jpg" class="topper-banner-img" alt="Creator Hybrid Toppers">
+
+                <div class="topper-scroll" id="topper-gallery">
+                    </div>
             </div>
 
             <div class="glass-card p-8 rounded-[35px] shadow-2xl border-t-[10px] border-yellow-400">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-2xl flex items-center justify-center text-xl shadow-inner">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-black text-[#003366]">New Batch: 2026-27</h2>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Enrollment Form</p>
-                    </div>
-                </div>
-
+                <h2 class="text-xl font-black text-[#003366] mb-4">New Batch: 2026-27</h2>
                 <form id="regForm" class="space-y-5">
-                    <div class="flex flex-col items-center mb-6">
-                        <div class="relative w-28 h-28 rounded-[30px] border-4 border-dashed border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden group hover:border-blue-400">
-                            <input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewImage(this)">
-                            <img id="preview" class="hidden w-full h-full object-cover">
-                            <div id="upload-icon" class="text-center text-slate-400">
-                                <i class="fas fa-camera text-2xl"></i>
-                                <p class="text-[8px] font-black uppercase mt-1">Upload Photo</p>
-                            </div>
-                        </div>
+                    <input type="text" id="stu_name" placeholder="Full Name of Student" class="input-field shadow-sm" required>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="stu_class" placeholder="Class" class="input-field shadow-sm" required>
+                        <input type="tel" id="stu_mobile" placeholder="Guardian's Mobile" class="input-field shadow-sm" required>
                     </div>
-                    <div class="space-y-4">
-                        <input type="text" id="stu_name" placeholder="Full Name of Student" class="input-field shadow-sm" required>
-                        <div class="grid grid-cols-2 gap-4">
-                            <input type="text" id="stu_class" placeholder="Class" class="input-field shadow-sm" required>
-                            <input type="tel" id="stu_mobile" placeholder="Guardian's Mobile" class="input-field shadow-sm" required>
-                        </div>
-                        <input type="password" id="stu_pass" placeholder="Create Security Password" class="input-field shadow-sm" required>
-                    </div>
-                    <button type="submit" class="w-full gradient-bg text-white font-black py-5 rounded-2xl shadow-xl uppercase tracking-widest mt-4">
-                        Submit Application <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
+                    <button type="submit" class="w-full gradient-bg text-white font-black py-5 rounded-2xl shadow-xl uppercase mt-4">Submit Application</button>
                 </form>
             </div>
         </div>
-        
-        </main>
-
-    <div id="qrModal">
-        <div class="bg-white rounded-[45px] p-10 max-w-[360px] w-full text-center shadow-2xl">
-            <h3 class="text-[10px] font-black text-purple-700 uppercase mb-5 tracking-[4px]">Pay Enrollment Fee</h3>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9795204210@axl%26pn=Abhay%20Sir%26am=1%26cu=INR" class="w-52 h-52 mx-auto rounded-3xl mb-6 shadow-lg">
-            <input type="text" id="utr_input" maxlength="12" placeholder="Enter 12 Digit UTR" class="input-field text-center bg-purple-50 mb-4">
-            <button onclick="finalizeAdmission()" class="w-full bg-purple-700 text-white py-5 rounded-2xl font-black uppercase">Verify & Join</button>
-        </div>
-    </div>
+    </main>
 
     <script>
-        const MASTER_PASS = "Abhay@1234";
-        const ADMIN_WA = "919795204210";
-        let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
-        let tempPhoto = "";
+        // यहाँ हर छात्र के लिए अपना असली फोटो लिंक पेस्ट करें
+        const toppersData = [
+            { name: "Shraddha", info: "10th | 90.16%", year: "2022", img: "यहाँ_Shraddha_का_लिंक_पेस्ट_करें" },
+            { name: "Satyam Maurya", info: "10th | 86%", year: "2022", img: "यहाँ_Satyam_का_लिंक_पेस्ट_करें" },
+            { name: "Shardanand", info: "12th | 92.2%", year: "2023", img: "यहाँ_Shardanand_का_लिंक_पेस्ट_करें" }
+        ];
 
-        // नेविगेशन और बैक बटन फिक्स
+        function initToppers() {
+            const container = document.getElementById('topper-gallery');
+            if(!container) return;
+            container.innerHTML = toppersData.map(t => `
+                <div class="flex flex-col items-center min-w-[100px] text-center">
+                    <div class="photo-frame">
+                        <img src="${t.img}" onerror="this.src='https://via.placeholder.com/80?text=IMG'">
+                    </div>
+                    <p class="text-[10px] font-black text-[#003366] uppercase leading-tight">${t.name}</p>
+                    <p class="text-[8px] font-bold text-slate-500">${t.info}</p>
+                    <p class="text-[7px] font-black text-white bg-red-500 rounded px-1.5 py-0.5 mt-1">${t.year}</p>
+                </div>
+            `).join('');
+        }
+
+        window.onload = () => {
+            initToppers();
+            showPage('reg');
+        };
+
         function showPage(pageId) {
             document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
             const target = document.getElementById('page-' + pageId);
@@ -113,40 +115,6 @@
         function changePage(pageId) {
             showPage(pageId);
             history.pushState({ page: pageId }, "", "#" + pageId);
-        }
-
-        window.onpopstate = function(event) {
-            if (!event.state || event.state.page !== 'payment') {
-                document.getElementById('qrModal').style.display = "none";
-            }
-            if (event.state && event.state.page) showPage(event.state.page);
-            else showPage('reg');
-        };
-
-        window.onload = () => {
-            const initialPage = window.location.hash.replace('#', '') || 'reg';
-            history.replaceState({ page: initialPage }, "", "#" + initialPage);
-            showPage(initialPage);
-        };
-
-        // एडमिशन फॉर्म सबमिट
-        document.getElementById('regForm').onsubmit = function(e) {
-            e.preventDefault();
-            document.getElementById('qrModal').style.display = "flex";
-            history.pushState({ page: 'payment' }, "", "#payment");
-        };
-
-        function previewImage(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = e => { 
-                    document.getElementById('preview').src = e.target.result; 
-                    document.getElementById('preview').classList.remove('hidden'); 
-                    document.getElementById('upload-icon').classList.add('hidden');
-                    tempPhoto = e.target.result; 
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
         }
     </script>
 </body>
