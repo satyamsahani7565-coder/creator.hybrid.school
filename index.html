@@ -190,7 +190,11 @@
         #idCard { width: 320px; background: white; border-radius: 24px; overflow: hidden; border: 2px solid #003366; position: relative; }
         .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001a33 100%); }
         #qrModal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; padding: 20px; }
-        .topper-card { background: white; border-radius: 20px; padding: 10px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        
+        /* टूल्स और एनिमेशन */
+        .topper-scroll { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; scrollbar-width: none; }
+        .topper-scroll::-webkit-scrollbar { display: none; }
+        .topper-img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #fbbf24; object-cover: cover; }
     </style>
 </head>
 <body>
@@ -210,74 +214,70 @@
 
     <nav class="mx-6 -mt-8 rounded-2xl shadow-2xl flex p-1 bg-white/80 backdrop-blur-md sticky top-4 z-50 border border-white">
         <button onclick="changePage('reg')" id="t-reg" class="flex-1 py-3 rounded-xl font-bold text-[10px] active-tab transition-all">ADMISSION</button>
-        <button onclick="changePage('toppers')" id="t-toppers" class="flex-1 py-3 rounded-xl font-bold text-[10px] text-slate-400 transition-all">TOPPERS</button>
         <button onclick="changePage('student')" id="t-student" class="flex-1 py-3 rounded-xl font-bold text-[10px] text-slate-400 transition-all">MY CARD</button>
         <button onclick="changePage('admin')" id="t-admin" class="flex-1 py-3 rounded-xl font-bold text-[10px] text-slate-400 transition-all">ADMIN</button>
     </nav>
 
     <main class="p-5 max-w-lg mx-auto mb-12">
         
-        <div id="page-reg" class="glass-card p-8 rounded-[35px] shadow-2xl mt-4 border-t-[10px] border-yellow-400">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-2xl flex items-center justify-center text-xl shadow-inner">
-                    <i class="fas fa-user-plus"></i>
+        <div id="page-reg">
+            <div class="glass-card p-5 rounded-[30px] mb-6 border-b-4 border-blue-600 shadow-lg">
+                <h3 class="text-center font-black text-[#003366] text-xs uppercase mb-4 tracking-widest"><i class="fas fa-star text-yellow-500 mr-2"></i> Our Pride Toppers <i class="fas fa-star text-yellow-500 ml-2"></i></h3>
+                
+                <div class="flex items-center bg-blue-600 text-white p-3 rounded-2xl mb-4 shadow-md">
+                    <img src="https://via.placeholder.com/100?text=Anish" class="w-16 h-16 rounded-xl border-2 border-yellow-400 object-cover mr-4">
+                    <div>
+                        <p class="text-[10px] font-bold text-yellow-400">STAR OF CREATOR</p>
+                        <h4 class="text-lg font-black uppercase">Anish Sahani</h4>
+                        <p class="text-[10px] opacity-90">12th Class | 93.6% (Year 2023)</p>
+                    </div>
                 </div>
-                <div>
-                    <h2 class="text-xl font-black text-[#003366]">New Batch: 2026-27</h2>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Registration Open</p>
-                </div>
+
+                <div class="topper-scroll" id="topper-gallery">
+                    </div>
             </div>
 
-            <form id="regForm" class="space-y-5">
-                <div class="flex flex-col items-center mb-6">
-                    <div class="relative w-28 h-28 rounded-[30px] border-4 border-dashed border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden group hover:border-blue-400 transition-all">
-                        <input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewImage(this)">
-                        <img id="preview" class="hidden w-full h-full object-cover">
-                        <div id="upload-icon" class="text-center text-slate-400">
-                            <i class="fas fa-camera text-2xl mb-1"></i>
-                            <p class="text-[8px] font-black uppercase">Upload Photo</p>
+            <div class="glass-card p-8 rounded-[35px] shadow-2xl border-t-[10px] border-yellow-400">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-2xl flex items-center justify-center text-xl shadow-inner">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black text-[#003366]">New Batch: 2026-27</h2>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Registration Open</p>
+                    </div>
+                </div>
+
+                <form id="regForm" class="space-y-5">
+                    <div class="flex flex-col items-center mb-6">
+                        <div class="relative w-28 h-28 rounded-[30px] border-4 border-dashed border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden group hover:border-blue-400 transition-all">
+                            <input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewImage(this)">
+                            <img id="preview" class="hidden w-full h-full object-cover">
+                            <div id="upload-icon" class="text-center text-slate-400">
+                                <i class="fas fa-camera text-2xl mb-1"></i>
+                                <p class="text-[8px] font-black uppercase">Upload Photo</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="space-y-4">
-                    <input type="text" id="stu_name" placeholder="Full Name of Student" class="input-field shadow-sm" required>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" id="stu_class" placeholder="Class (9th-12th)" class="input-field shadow-sm" required>
-                        <input type="tel" id="stu_mobile" placeholder="Guardian's Mobile" class="input-field shadow-sm" required>
+                    <div class="space-y-4">
+                        <input type="text" id="stu_name" placeholder="Full Name of Student" class="input-field shadow-sm" required>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" id="stu_class" placeholder="Class" class="input-field shadow-sm" required>
+                            <input type="tel" id="stu_mobile" placeholder="Guardian's Mobile" class="input-field shadow-sm" required>
+                        </div>
+                        <div class="relative">
+                            <input type="password" id="stu_pass" placeholder="Create Password" class="input-field shadow-sm" required>
+                            <i class="fas fa-eye absolute right-4 top-4 text-slate-400" onclick="togglePass('stu_pass')"></i>
+                        </div>
                     </div>
-                    <div class="relative">
-                        <input type="password" id="stu_pass" placeholder="Create Password" class="input-field shadow-sm" required>
-                        <i class="fas fa-eye absolute right-4 top-4 text-slate-400" onclick="togglePass('stu_pass')"></i>
-                    </div>
-                </div>
-                <button type="submit" class="w-full gradient-bg text-white font-black py-5 rounded-2xl shadow-xl uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all mt-4">
-                    Submit Application <i class="fas fa-chevron-right ml-2 text-yellow-400"></i>
-                </button>
-            </form>
-        </div>
-
-        <div id="page-toppers" class="hidden glass-card p-6 rounded-[35px] shadow-2xl mt-4">
-            <h2 class="text-2xl font-black text-[#003366] mb-6 text-center italic">OUR TOPPERS</h2>
-            
-            <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 p-5 rounded-3xl border-2 border-yellow-200 mb-8 flex items-center gap-4 shadow-md">
-                <div class="relative">
-                    <div class="absolute -top-2 -left-2 bg-yellow-400 text-[8px] font-black px-2 py-1 rounded-full shadow-sm">LEGEND</div>
-                    <div class="w-20 h-20 rounded-2xl bg-white border-2 border-yellow-400 overflow-hidden">
-                        <img src="https://i.ibb.co/LzNf8rX/Anish.jpg" class="w-full h-full object-cover" alt="Anish Sahani">
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-lg font-black text-[#003366]">Anish Sahani</h3>
-                    <p class="text-sm font-bold text-slate-600">Class 12th | <span class="text-red-600">93.6%</span></p>
-                    <p class="text-[9px] font-black bg-[#003366] text-white inline-block px-2 py-1 rounded-md mt-1">YEAR 2023</p>
-                </div>
+                    <button type="submit" class="w-full gradient-bg text-white font-black py-5 rounded-2xl shadow-xl uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all mt-4">
+                        Submit Application <i class="fas fa-chevron-right ml-2 text-yellow-400"></i>
+                    </button>
+                </form>
             </div>
-
-            <div id="toppers-list" class="grid grid-cols-2 gap-4">
-                </div>
         </div>
 
-        <div id="page-student" class="hidden glass-card p-8 rounded-[35px] shadow-2xl text-center mt-4">
+        <div id="page-student" class="hidden glass-card p-8 rounded-[35px] shadow-2xl text-center">
             <h2 class="text-2xl font-black text-slate-800 mb-6 italic uppercase">Student Digital ID</h2>
             <div class="space-y-4 mb-8">
                 <input type="tel" id="login_mob" placeholder="Registered Mobile" class="input-field text-center">
@@ -310,41 +310,23 @@
             </div>
         </div>
 
-        <div id="page-admin" class="hidden glass-card p-8 rounded-[35px] text-center mt-4 border-t-8 border-red-600 shadow-2xl">
-            <div class="w-20 h-20 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-inner">
-                <i class="fas fa-user-shield"></i>
-            </div>
-            <h2 class="text-xl font-black text-red-600 mb-6">ABHAY SIR LOGIN</h2>
-            <div class="relative mb-6">
-                <input type="password" id="adm_pass" placeholder="Enter Secure Code" class="input-field text-center">
-                <i class="fas fa-eye absolute right-4 top-4 text-slate-400" onclick="togglePass('adm_pass')"></i>
-            </div>
+        <div id="page-admin" class="hidden glass-card p-8 rounded-[35px] text-center border-t-8 border-red-600 shadow-2xl">
+            <h2 class="text-xl font-black text-red-600 mb-6 uppercase">Admin Access</h2>
+            <input type="password" id="adm_pass" placeholder="Enter Secure Code" class="input-field text-center mb-4">
             <button onclick="adminLogin()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-black uppercase shadow-xl hover:bg-red-700">Access Dashboard</button>
         </div>
 
         <div id="page-panel" class="hidden glass-card p-6 rounded-[35px] mt-4 shadow-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-black text-[#003366] text-sm uppercase border-l-4 border-yellow-400 pl-3">Database</h2>
-                <button onclick="resetData()" class="bg-red-50 text-red-600 text-[9px] font-black px-3 py-1 rounded-lg">PURGE ALL</button>
-            </div>
             <div id="admin-list" class="space-y-4"></div>
         </div>
-
     </main>
 
     <div id="qrModal">
-        <div class="bg-white rounded-[45px] p-10 max-w-[360px] w-full text-center shadow-[0_0_50px_rgba(255,255,255,0.2)]">
+        <div class="bg-white rounded-[45px] p-10 max-w-[360px] w-full text-center shadow-2xl">
             <h3 class="text-[10px] font-black text-purple-700 uppercase mb-5 tracking-[4px]">Pay Enrollment Fee</h3>
-            <div class="bg-slate-50 p-5 rounded-[40px] border-2 border-slate-100 mb-6 shadow-inner">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9795204210@axl%26pn=Abhay%20Sir%26am=1%26cu=INR" class="w-52 h-52 mx-auto rounded-3xl shadow-lg">
-                <p class="text-[12px] font-black text-slate-800 mt-4 underline decoration-purple-400">9795204210@axl</p>
-                <p class="text-[8px] text-slate-400 font-bold uppercase mt-1">Abhay Sir - Creator Hybrid</p>
-            </div>
-            <div class="text-left space-y-2 mb-6">
-                <label class="text-[10px] font-black text-slate-400 uppercase ml-2">Enter Transaction ID (UTR)</label>
-                <input type="text" id="utr_input" maxlength="12" placeholder="12 Digit UTR Number" class="input-field text-center bg-purple-50 border-purple-100 text-lg font-mono">
-            </div>
-            <button onclick="finalizeAdmission()" class="w-full bg-purple-700 text-white py-5 rounded-2xl font-black uppercase shadow-2xl active:scale-95 transition-all">Verify & Join <i class="fas fa-check-circle ml-2"></i></button>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9795204210@axl%26pn=Abhay%20Sir%26am=1%26cu=INR" class="w-52 h-52 mx-auto rounded-3xl mb-6 shadow-lg">
+            <input type="text" id="utr_input" maxlength="12" placeholder="Enter 12 Digit UTR" class="input-field text-center bg-purple-50 text-lg font-mono mb-4">
+            <button onclick="finalizeAdmission()" class="w-full bg-purple-700 text-white py-5 rounded-2xl font-black uppercase shadow-2xl active:scale-95 transition-all">Verify & Join</button>
         </div>
     </div>
 
@@ -354,24 +336,44 @@
         let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
         let tempPhoto = "";
 
+        // TOPPERS DATA (Photos link automatically fallback to icon if not found)
         const toppersData = [
-            { name: "Shraddha", year: "2022", info: "10th | 90.16%" },
-            { name: "Satyam Maurya", year: "2022", info: "10th | 86%" },
-            { name: "Shardanand", year: "2023", info: "12th | 92.2%" },
-            { name: "Shukdev", year: "2023", info: "12th | 88.6%" },
-            { name: "Amit", year: "2023", info: "10th | 91%" },
-            { name: "Harshit Dubey", year: "2023", info: "10th | 89.3%" }
+            { name: "Shraddha", info: "10th | 90.16%", year: "2022", img: "https://via.placeholder.com/150?text=Shraddha" },
+            { name: "Satyam Maurya", info: "10th | 86%", year: "2022", img: "https://via.placeholder.com/150?text=Satyam" },
+            { name: "Shardanand", info: "12th | 92.2%", year: "2023", img: "https://via.placeholder.com/150?text=Shardanand" },
+            { name: "Shukdev", info: "12th | 88.6%", year: "2023", img: "https://via.placeholder.com/150?text=Shukdev" },
+            { name: "Amit", info: "10th | 91%", year: "2023", img: "https://via.placeholder.com/150?text=Amit" },
+            { name: "Harshit Dubey", info: "10th | 89.3%", year: "2023", img: "https://via.placeholder.com/150?text=Harshit" }
         ];
+
+        // RENDER TOPPERS AUTOMATICALLY
+        function initToppers() {
+            const container = document.getElementById('topper-gallery');
+            container.innerHTML = toppersData.map(t => `
+                <div class="flex flex-col items-center min-w-[90px] text-center">
+                    <img src="${t.img}" class="topper-img mb-2 shadow-md">
+                    <p class="text-[9px] font-black text-[#003366] uppercase leading-tight">${t.name}</p>
+                    <p class="text-[7px] font-bold text-slate-500">${t.info}</p>
+                    <p class="text-[6px] font-black text-white bg-red-500 rounded px-1 mt-1">${t.year}</p>
+                </div>
+            `).join('');
+        }
+
+        window.onload = function() {
+            initToppers();
+            const initialPage = window.location.hash.replace('#', '') || 'reg';
+            history.replaceState({ page: initialPage }, "", "#" + initialPage);
+            showPage(initialPage);
+        };
 
         function showPage(pageId) {
             document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById('page-' + pageId).classList.remove('hidden');
+            const target = document.getElementById('page-' + (pageId === 'reg' ? 'reg' : pageId));
+            if(target) target.classList.remove('hidden');
+
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.add('text-slate-400'));
             const btn = document.getElementById('t-' + pageId);
-            if(btn) { btn.classList.add('active-tab'); btn.classList.remove('text-slate-400'); }
-            
-            if(pageId === 'toppers') renderToppers();
+            if(btn) btn.classList.add('active-tab');
             if(pageId === 'panel') renderAdmin();
         }
 
@@ -385,31 +387,11 @@
                 document.getElementById('qrModal').style.display = "none";
             }
             if (event.state && event.state.page) {
-                if(event.state.page !== 'payment') showPage(event.state.page);
+                showPage(event.state.page);
             } else {
                 showPage('reg');
             }
         };
-
-        window.onload = function() {
-            const initialPage = window.location.hash.replace('#', '') || 'reg';
-            history.replaceState({ page: initialPage }, "", "#" + initialPage);
-            showPage(initialPage);
-        };
-
-        function renderToppers() {
-            const list = document.getElementById('toppers-list');
-            list.innerHTML = toppersData.map(t => `
-                <div class="topper-card">
-                    <div class="w-16 h-16 bg-slate-100 rounded-full mx-auto mb-2 border-2 border-[#003366] overflow-hidden flex items-center justify-center">
-                        <i class="fas fa-user text-slate-300 text-2xl"></i>
-                    </div>
-                    <p class="text-[10px] font-black text-[#003366] uppercase truncate">${t.name}</p>
-                    <p class="text-[8px] font-bold text-slate-500">${t.info}</p>
-                    <p class="text-[7px] font-black text-white bg-red-500 rounded px-1 mt-1 inline-block">${t.year}</p>
-                </div>
-            `).join('');
-        }
 
         function togglePass(id) {
             const el = document.getElementById(id);
@@ -446,19 +428,17 @@
         function finalizeAdmission() {
             if(window.location.hash === "#payment") history.back();
             const utr = document.getElementById('utr_input').value;
-            if(utr.length < 12) { alert("Invalid 12-digit UTR!"); return; }
-            if(db.find(x => x.utr === utr)) { alert("UTR already used!"); return; }
-
+            if(utr.length < 12) { alert("Invalid UTR!"); return; }
+            
             window.activeStu.utr = utr;
             db.push({...window.activeStu});
             localStorage.setItem('ch_pro_db', JSON.stringify(db));
             document.getElementById('qrModal').style.display = "none";
             document.getElementById('regForm').reset();
             
-            const msg = `*CREATOR HYBRID ADMISSION*%0A------------------------%0A*Name:* ${window.activeStu.name}%0A*Class:* ${window.activeStu.class}%0A*UTR:* ${utr}%0A*Mobile:* ${window.activeStu.mobile}`;
+            const msg = `*NEW ADMISSION*%0AName: ${window.activeStu.name}%0AClass: ${window.activeStu.class}%0AUTR: ${utr}`;
             window.open(`https://wa.me/${ADMIN_WA}?text=${msg}`, '_blank');
-            
-            alert("Application Submitted Successfully!");
+            alert("Application Submitted!");
             changePage('student');
         }
 
@@ -490,23 +470,19 @@
 
         function renderAdmin() {
             const list = document.getElementById('admin-list');
-            list.innerHTML = db.length === 0 ? "<p class='text-center py-20 text-slate-400 text-xs italic uppercase tracking-widest'>No records</p>" : 
+            list.innerHTML = db.length === 0 ? "<p class='text-center py-20 text-slate-400'>No records</p>" : 
             db.map((s, i) => `
-                <div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border border-slate-100 group">
+                <div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border">
                     <div class="flex items-center gap-4">
-                        <img src="${s.photo || 'https://via.placeholder.com/50'}" class="w-12 h-12 rounded-xl object-cover border-2 border-slate-50 shadow-sm">
+                        <img src="${s.photo || 'https://via.placeholder.com/50'}" class="w-12 h-12 rounded-xl object-cover">
                         <div>
-                            <p class="text-[12px] font-black uppercase text-slate-800">${s.name}</p>
-                            <p class="text-[9px] text-blue-600 font-bold italic tracking-tighter">UTR: ${s.utr}</p>
+                            <p class="text-[12px] font-black text-slate-800">${s.name}</p>
+                            <p class="text-[9px] text-blue-600 font-bold">UTR: ${s.utr}</p>
                         </div>
                     </div>
-                    <button onclick="deleteEntry(${i})" class="w-10 h-10 text-red-100 hover:text-red-500 transition-all"><i class="fas fa-trash-alt"></i></button>
                 </div>
             `).join('');
         }
-
-        function deleteEntry(i) { if(confirm("Permanently delete?")) { db.splice(i,1); localStorage.setItem('ch_pro_db', JSON.stringify(db)); renderAdmin(); } }
-        function resetData() { if(confirm("Wipe entire database?")) { localStorage.clear(); db = []; changePage('admin'); } }
     </script>
 </body>
 </html>
