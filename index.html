@@ -14,20 +14,19 @@
         .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
         .input-field { width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 16px; outline: none; transition: 0.3s; font-size: 14px; }
         .input-field:focus { border-color: #003366; ring: 4px rgba(0,51,102,0.1); }
+        #idCard { width: 320px; background: white; border-radius: 24px; overflow: hidden; border: 2px solid #003366; position: relative; }
+        .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001a33 100%); }
+        #qrModal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; padding: 20px; }
         
-        /* टूल्स और एनिमेशन */
         .topper-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 10px 5px; scrollbar-width: none; -ms-overflow-style: none; }
         .topper-scroll::-webkit-scrollbar { display: none; }
         
         /* फोटो फ्रेम का डिज़ाइन */
-        .photo-frame { width: 75px; height: 75px; border-radius: 50%; border: 3px solid #fbbf24; overflow: hidden; background: #fff; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .photo-frame { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #fbbf24; overflow: hidden; background: #fff; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
         
         .photo-frame-anish { width: 85px; height: 85px; border-radius: 12px; border: 3px solid #fbbf24; overflow: hidden; background: #fff; margin-right: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .photo-frame-anish img { width: 100%; height: 100%; object-fit: cover; }
-
-        .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001a33 100%); }
-        #qrModal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; padding: 20px; }
     </style>
 </head>
 <body>
@@ -110,7 +109,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div id="page-student" class="hidden glass-card p-8 rounded-[35px] shadow-2xl text-center">
             <h2 class="text-2xl font-black text-slate-800 mb-6 italic uppercase">Student Digital ID</h2>
             <div class="space-y-4 mb-8">
@@ -123,9 +122,12 @@
             </div>
             <div id="id-container" class="hidden flex flex-col items-center">
                 <div id="idCard">
-                    <div class="gradient-bg p-5 text-white text-center"><h4 class="font-black text-lg">CREATOR HYBRID</h4></div>
+                    <div class="gradient-bg p-5 text-white text-center">
+                        <h4 class="font-black text-lg">CREATOR HYBRID</h4>
+                        <p class="text-[7px] tracking-[3px] text-yellow-400 font-bold uppercase">Student Identity Card</p>
+                    </div>
                     <div class="p-6 flex flex-col items-center bg-white">
-                        <img id="id-p" src="" class="w-24 h-24 rounded-2xl border-4 border-slate-100 object-cover mb-4">
+                        <img id="id-p" src="" class="w-24 h-24 rounded-2xl border-4 border-slate-100 object-cover mb-4 shadow-md">
                         <h3 id="id-n" class="text-xl font-black text-[#003366]"></h3>
                         <p id="id-c" class="text-xs font-bold text-slate-400 mb-4"></p>
                         <div class="w-full grid grid-cols-2 gap-2 text-[8px] text-left border-t pt-4">
@@ -133,12 +135,41 @@
                             <div><p class="font-bold text-slate-400">STATUS:</p><p class="font-black text-emerald-600">VERIFIED ✅</p></div>
                         </div>
                     </div>
+                    <div class="bg-yellow-400 h-2"></div>
                 </div>
+                <button onclick="downloadID()" class="mt-6 bg-blue-100 text-[#003366] px-8 py-3 rounded-xl font-black text-[10px] uppercase shadow-md">
+                    <i class="fas fa-download mr-2"></i> Save Image
+                </button>
             </div>
+        </div>
+
+        <div id="page-admin" class="hidden glass-card p-8 rounded-[35px] text-center border-t-8 border-red-600 shadow-2xl">
+            <h2 class="text-xl font-black text-red-600 mb-6 uppercase">Admin Access</h2>
+            <input type="password" id="adm_pass" placeholder="Enter Secure Code" class="input-field text-center mb-4">
+            <button onclick="adminLogin()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-black uppercase shadow-xl hover:bg-red-700">Access Dashboard</button>
+        </div>
+
+        <div id="page-panel" class="hidden glass-card p-6 rounded-[35px] mt-4 shadow-2xl">
+            <div id="admin-list" class="space-y-4"></div>
         </div>
     </main>
 
+    <div id="qrModal">
+        <div class="bg-white rounded-[45px] p-10 max-w-[360px] w-full text-center shadow-2xl">
+            <h3 class="text-[10px] font-black text-purple-700 uppercase mb-5 tracking-[4px]">Pay Enrollment Fee</h3>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9795204210@axl%26pn=Abhay%20Sir%26am=1%26cu=INR" class="w-52 h-52 mx-auto rounded-3xl mb-6 shadow-lg">
+            <input type="text" id="utr_input" maxlength="12" placeholder="Enter 12 Digit UTR" class="input-field text-center bg-purple-50 text-lg font-mono mb-4">
+            <button onclick="finalizeAdmission()" class="w-full bg-purple-700 text-white py-5 rounded-2xl font-black uppercase shadow-2xl active:scale-95 transition-all">Verify & Join</button>
+        </div>
+    </div>
+
     <script>
+        const MASTER_PASS = "Abhay@1234";
+        const ADMIN_WA = "919795204210";
+        let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
+        let tempPhoto = "";
+
+        // TOPPERS DATA (Direct ImgBB Links Added)
         const toppersData = [
             { name: "Shraddha", info: "10th | 90.16%", year: "2022", img: "https://i.ibb.co/v4S6JzV/shraddha.jpg" },
             { name: "Satyam Maurya", info: "10th | 86%", year: "2022", img: "https://i.ibb.co/3Wf0GZ4/satyam.jpg" },
@@ -150,6 +181,7 @@
 
         function initToppers() {
             const container = document.getElementById('topper-gallery');
+            if(!container) return;
             container.innerHTML = toppersData.map(t => `
                 <div class="flex flex-col items-center min-w-[100px] text-center">
                     <div class="photo-frame">
@@ -164,20 +196,41 @@
 
         window.onload = () => {
             initToppers();
-            showPage('reg');
+            const initialPage = window.location.hash.replace('#', '') || 'reg';
+            history.replaceState({ page: initialPage }, "", "#" + initialPage);
+            showPage(initialPage);
         };
 
-        // Other functions (changePage, togglePass, previewImage, studentLogin, etc.) from your original code
         function showPage(pageId) {
             document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById('page-' + pageId).classList.remove('hidden');
+            const target = document.getElementById('page-' + (pageId === 'reg' ? 'reg' : pageId));
+            if(target) target.classList.remove('hidden');
+
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
             const btn = document.getElementById('t-' + pageId);
             if(btn) btn.classList.add('active-tab');
         }
 
-        function changePage(pageId) { showPage(pageId); history.pushState({page: pageId}, "", "#"+pageId); }
-        window.onpopstate = (e) => showPage(e.state ? e.state.page : 'reg');
+        function changePage(pageId) {
+            showPage(pageId);
+            history.pushState({ page: pageId }, "", "#" + pageId);
+        }
+
+        window.onpopstate = function(event) {
+            if (!event.state || event.state.page !== 'payment') {
+                document.getElementById('qrModal').style.display = "none";
+            }
+            if (event.state && event.state.page) {
+                showPage(event.state.page);
+            } else {
+                showPage('reg');
+            }
+        };
+
+        function togglePass(id) {
+            const el = document.getElementById(id);
+            el.type = el.type === "password" ? "text" : "password";
+        }
 
         function previewImage(input) {
             if (input.files && input.files[0]) {
@@ -191,11 +244,81 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        
-        function togglePass(id) {
-            const el = document.getElementById(id);
-            el.type = el.type === "password" ? "text" : "password";
+
+        document.getElementById('regForm').onsubmit = function(e) {
+            e.preventDefault();
+            window.activeStu = {
+                name: document.getElementById('stu_name').value,
+                class: document.getElementById('stu_class').value,
+                mobile: document.getElementById('stu_mobile').value,
+                pass: document.getElementById('stu_pass').value,
+                photo: tempPhoto,
+                regDate: new Date().toLocaleDateString()
+            };
+            document.getElementById('qrModal').style.display = "flex";
+            history.pushState({ page: 'payment' }, "", "#payment");
+        };
+
+        function finalizeAdmission() {
+            if(window.location.hash === "#payment") history.back();
+            const utr = document.getElementById('utr_input').value;
+            if(utr.length < 12) { alert("Invalid UTR!"); return; }
+            
+            window.activeStu.utr = utr;
+            db.push({...window.activeStu});
+            localStorage.setItem('ch_pro_db', JSON.stringify(db));
+            document.getElementById('qrModal').style.display = "none";
+            document.getElementById('regForm').reset();
+            
+            const msg = `*NEW ADMISSION*%0AName: ${window.activeStu.name}%0AClass: ${window.activeStu.class}%0AUTR: ${utr}`;
+            window.open(`https://wa.me/${ADMIN_WA}?text=${msg}`, '_blank');
+            alert("Application Submitted!");
+            changePage('student');
+        }
+
+        function studentLogin() {
+            const m = document.getElementById('login_mob').value;
+            const p = document.getElementById('login_pass').value;
+            const s = db.find(x => x.mobile === m && x.pass === p);
+            if(!s) { alert("Invalid Credentials!"); return; }
+            document.getElementById('id-n').innerText = s.name.toUpperCase();
+            document.getElementById('id-c').innerText = "Class: " + s.class;
+            document.getElementById('id-m').innerText = s.mobile;
+            document.getElementById('id-p').src = s.photo || 'https://via.placeholder.com/150';
+            document.getElementById('id-container').classList.remove('hidden');
+        }
+
+        function downloadID() {
+            html2canvas(document.getElementById('idCard')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `ID_${document.getElementById('id-n').innerText}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        function adminLogin() {
+            if(document.getElementById('adm_pass').value === MASTER_PASS) changePage('panel');
+            else alert("Access Denied!");
+        }
+
+        function renderAdmin() {
+            const list = document.getElementById('admin-list');
+            if(!list) return;
+            list.innerHTML = db.length === 0 ? "<p class='text-center py-20 text-slate-400'>No records</p>" : 
+            db.map((s, i) => `
+                <div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border">
+                    <div class="flex items-center gap-4">
+                        <img src="${s.photo || 'https://via.placeholder.com/50'}" class="w-12 h-12 rounded-xl object-cover">
+                        <div>
+                            <p class="text-[12px] font-black text-slate-800">${s.name}</p>
+                            <p class="text-[9px] text-blue-600 font-bold">UTR: ${s.utr}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
     </script>
 </body>
 </html>
+
