@@ -3,204 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator Hybrid | Professional Admission Portal</title>
+    <title>Creator Hybrid | Professional Student Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { background: #f8fafc; font-family: 'Inter', sans-serif; color: #1e293b; }
-        .active-tab { background: #fbbf24; color: #003366; transform: scale(1.05); box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3); }
-        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
-        .input-field { width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 16px; outline: none; transition: 0.3s; font-size: 14px; }
-        .input-field:focus { border-color: #003366; ring: 4px rgba(0,51,102,0.1); }
-        #idCard { width: 320px; background: white; border-radius: 24px; overflow: hidden; border: 2px solid #003366; position: relative; }
-        .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001a33 100%); }
-        #qrModal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; padding: 20px; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        :root { --pw-blue: #1b1e2e; --pw-accent: #5a4bda; --pw-light: #f4f7fe; }
+        body { background-color: var(--pw-light); font-family: 'Poppins', sans-serif; }
+        .pw-gradient { background: linear-gradient(135deg, #1b1e2e 0%, #3d4465 100%); }
+        .active-tab { background: var(--pw-accent); color: white !important; box-shadow: 0 8px 20px rgba(90, 75, 218, 0.3); }
+        .pw-card { background: white; border-radius: 24px; border: 1px solid #eef2ff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .input-pw { width: 100%; padding: 14px; border: 1.5px solid #e2e8f0; border-radius: 14px; transition: 0.3s; }
+        .input-pw:focus { border-color: var(--pw-accent); outline: none; }
+        #idCard { width: 340px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #eee; }
     </style>
 </head>
-<body>
+<body class="pb-10">
 
-    <header class="gradient-bg text-white pt-10 pb-14 px-6 text-center rounded-b-[50px] shadow-2xl relative overflow-hidden">
-        <div class="absolute top-[-20px] right-[-20px] opacity-10"><i class="fas fa-university text-[150px]"></i></div>
-        <div class="relative z-10">
-            <h1 class="text-4xl font-black tracking-tighter uppercase mb-1">Creator Hybrid</h1>
-            <div class="flex justify-center items-center gap-2 mb-3">
-                <span class="h-[2px] w-8 bg-yellow-400"></span>
-                <p class="text-yellow-400 text-[10px] font-bold uppercase tracking-[4px]">Elite Education Portal</p>
-                <span class="h-[2px] w-8 bg-yellow-400"></span>
-            </div>
-            <p class="text-[10px] opacity-80 font-medium italic"><i class="fas fa-map-marker-alt mr-1"></i> Campierganj, Gorakhpur | Dir: Abhay Sir</p>
-        </div>
+    <header class="pw-gradient text-white pt-12 pb-24 px-6 text-center rounded-b-[50px] shadow-2xl">
+        <h1 class="text-3xl font-black tracking-tight mb-1 uppercase">CREATOR HYBRID</h1>
+        <p class="text-indigo-200 text-[10px] font-bold tracking-[3px] uppercase">Elite Education Portal</p>
     </header>
 
-    <nav class="mx-6 -mt-8 rounded-2xl shadow-2xl flex p-2 bg-white/80 backdrop-blur-md sticky top-4 z-50 border border-white">
-        <button onclick="changePage('reg')" id="t-reg" class="flex-1 py-3 rounded-xl font-bold text-[11px] active-tab transition-all">ADMISSION</button>
-        <button onclick="changePage('student')" id="t-student" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400 transition-all">MY CARD</button>
-        <button onclick="changePage('admin')" id="t-admin" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400 transition-all">ADMIN</button>
+    <nav class="mx-auto max-w-sm -mt-10 px-4 sticky top-4 z-50">
+        <div class="bg-white/90 backdrop-blur-lg p-2 rounded-2xl shadow-xl flex gap-2 border border-white">
+            <button onclick="changePage('reg')" id="t-reg" class="flex-1 py-3 rounded-xl font-bold text-[11px] active-tab">ADMISSION</button>
+            <button onclick="changePage('student')" id="t-student" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400">MY CARD</button>
+            <button onclick="changePage('admin')" id="t-admin" class="flex-1 py-3 rounded-xl font-bold text-[11px] text-slate-400">ADMIN</button>
+        </div>
     </nav>
 
-    <main class="p-5 max-w-lg mx-auto mb-12">
+    <main class="p-6 max-w-lg mx-auto">
         
-        <div id="page-reg" class="glass-card p-8 rounded-[35px] shadow-2xl mt-4 border-t-[10px] border-yellow-400">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-2xl flex items-center justify-center text-xl shadow-inner">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl font-black text-[#003366]">Session 2026-27</h2>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Enrollment Form</p>
-                </div>
-            </div>
-
+        <div id="page-reg" class="pw-card p-8 mt-6">
+            <h2 class="text-xl font-bold text-slate-800 mb-6">Student Registration</h2>
             <form id="regForm" class="space-y-5">
-                <div class="flex flex-col items-center mb-6">
-                    <div class="relative w-28 h-28 rounded-[30px] border-4 border-dashed border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden group hover:border-blue-400 transition-all">
+                <div class="flex flex-col items-center">
+                    <div class="relative w-24 h-24 rounded-full border-4 border-dashed border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden">
                         <input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewImage(this)">
                         <img id="preview" class="hidden w-full h-full object-cover">
-                        <div id="upload-icon" class="text-center text-slate-400">
-                            <i class="fas fa-camera text-2xl mb-1"></i>
-                            <p class="text-[8px] font-black uppercase">Upload Photo</p>
-                        </div>
+                        <i id="upload-icon" class="fas fa-camera text-slate-300 text-xl"></i>
                     </div>
                 </div>
-
-                <div class="space-y-4">
-                    <input type="text" id="stu_name" placeholder="Full Name of Student" class="input-field shadow-sm" required>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" id="stu_class" placeholder="Applying for Class" class="input-field shadow-sm" required>
-                        <input type="tel" id="stu_mobile" placeholder="Guardian's Mobile" class="input-field shadow-sm" required>
-                    </div>
-                    <div class="relative">
-                        <input type="password" id="stu_pass" placeholder="Create Security Password" class="input-field shadow-sm" required>
-                        <i class="fas fa-eye absolute right-4 top-4 text-slate-400" onclick="togglePass('stu_pass')"></i>
-                    </div>
+                <input type="text" id="stu_name" placeholder="Full Student Name" class="input-pw" required>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" id="stu_class" placeholder="Class" class="input-pw" required>
+                    <input type="tel" id="stu_mobile" placeholder="Mobile" class="input-pw" required>
                 </div>
-
-                <button type="submit" class="w-full gradient-bg text-white font-black py-5 rounded-2xl shadow-xl uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all mt-4">
-                    Submit Application <i class="fas fa-chevron-right ml-2 text-yellow-400"></i>
-                </button>
+                <input type="password" id="stu_pass" placeholder="Create Password" class="input-pw" required>
+                <button type="submit" class="w-full bg-[#5a4bda] text-white py-4 rounded-xl font-bold uppercase shadow-lg">Submit Admission</button>
             </form>
         </div>
 
-        <div id="page-student" class="hidden glass-card p-8 rounded-[35px] shadow-2xl text-center mt-4">
-            <h2 class="text-2xl font-black text-slate-800 mb-6 italic uppercase">Student Digital ID</h2>
-            <div class="space-y-4 mb-8">
-                <input type="tel" id="login_mob" placeholder="Registered Mobile" class="input-field text-center">
-                <div class="relative">
-                    <input type="password" id="login_pass" placeholder="Password" class="input-field text-center">
-                    <i class="fas fa-eye absolute right-4 top-4 text-slate-400" onclick="togglePass('login_pass')"></i>
-                </div>
-                <button onclick="studentLogin()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg hover:bg-emerald-700 transition-all">Generate My ID</button>
+        <div id="page-student" class="hidden pw-card p-8 mt-6 text-center">
+            <h2 class="text-lg font-bold mb-6">Student ID Card</h2>
+            <div id="login-box" class="space-y-4 mb-6">
+                <input type="tel" id="login_mob" placeholder="Mobile Number" class="input-pw text-center">
+                <input type="password" id="login_pass" placeholder="Password" class="input-pw text-center">
+                <button onclick="studentLogin()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold uppercase">Generate ID</button>
             </div>
+            
             <div id="id-container" class="hidden flex flex-col items-center">
-                <div id="idCard">
-                    <div class="gradient-bg p-5 text-white text-center">
-                        <h4 class="font-black text-lg">CREATOR HYBRID</h4>
-                        <p class="text-[7px] tracking-[3px] text-yellow-400 font-bold uppercase">Student Identity Card</p>
+                <div id="idCard" class="text-left">
+                    <div class="pw-gradient p-6 text-white">
+                        <p class="text-[8px] font-bold text-indigo-300 tracking-[2px]">CREATOR HYBRID</p>
+                        <h4 class="font-extrabold text-lg">STUDENT IDENTITY</h4>
                     </div>
-                    <div class="p-6 flex flex-col items-center bg-white">
-                        <img id="id-p" src="" class="w-24 h-24 rounded-2xl border-4 border-slate-100 object-cover mb-4 shadow-md">
-                        <h3 id="id-n" class="text-xl font-black text-[#003366]"></h3>
-                        <p id="id-c" class="text-xs font-bold text-slate-400 mb-4"></p>
-                        <div class="w-full grid grid-cols-2 gap-2 text-[8px] text-left border-t pt-4">
-                            <div><p class="font-bold text-slate-400">MOBILE:</p><p id="id-m" class="font-black"></p></div>
-                            <div><p class="font-bold text-slate-400">STATUS:</p><p class="font-black text-emerald-600">VERIFIED ✅</p></div>
+                    <div class="p-6 flex items-center gap-4">
+                        <img id="id-p" src="" class="w-20 h-20 rounded-xl object-cover border-2 border-slate-50 shadow-sm">
+                        <div>
+                            <h3 id="id-n" class="text-md font-bold text-slate-800"></h3>
+                            <p id="id-c" class="text-xs font-bold text-indigo-600"></p>
+                            <p id="id-m" class="text-[10px] text-slate-500 font-bold mt-1"></p>
                         </div>
                     </div>
-                    <div class="bg-yellow-400 h-2"></div>
+                    <div class="px-6 pb-6"><div class="bg-emerald-50 text-emerald-600 text-center py-2 rounded-lg text-[9px] font-bold uppercase">✅ Verified Status</div></div>
                 </div>
-                <button onclick="downloadID()" class="mt-6 bg-blue-100 text-[#003366] px-8 py-3 rounded-xl font-black text-[10px] uppercase shadow-md">
-                    <i class="fas fa-download mr-2"></i> Save Image
-                </button>
+                <button onclick="downloadID()" class="mt-6 text-indigo-600 font-bold text-xs uppercase underline">Download Image</button>
             </div>
         </div>
 
-        <div id="page-admin" class="hidden glass-card p-8 rounded-[35px] text-center mt-4 border-t-8 border-red-600 shadow-2xl">
-            <div class="w-20 h-20 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-inner">
-                <i class="fas fa-user-shield"></i>
-            </div>
-            <h2 class="text-xl font-black text-red-600 mb-6">ABHAY SIR LOGIN</h2>
-            <div class="relative mb-6">
-                <input type="password" id="adm_pass" placeholder="Enter Secure Code" class="input-field text-center">
-                <i class="fas fa-eye absolute right-4 top-4 text-slate-400" onclick="togglePass('adm_pass')"></i>
-            </div>
-            <button onclick="adminLogin()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-black uppercase shadow-xl hover:bg-red-700">Access Dashboard</button>
+        <div id="page-admin" class="hidden pw-card p-8 mt-6 text-center">
+            <h2 class="text-lg font-bold mb-4">Admin Login</h2>
+            <input type="password" id="adm_pass" placeholder="Secure Code" class="input-pw text-center mb-4">
+            <button onclick="adminLogin()" class="w-full bg-slate-800 text-white py-4 rounded-xl font-bold uppercase">Access Portal</button>
         </div>
 
-        <div id="page-panel" class="hidden glass-card p-6 rounded-[35px] mt-4 shadow-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-black text-[#003366] text-sm uppercase border-l-4 border-yellow-400 pl-3">Database</h2>
-                <button onclick="resetData()" class="bg-red-50 text-red-600 text-[9px] font-black px-3 py-1 rounded-lg">PURGE ALL</button>
-            </div>
-            <div id="admin-list" class="space-y-4"></div>
+        <div id="page-panel" class="hidden pw-card p-6 mt-6">
+            <h2 class="text-xs font-black text-slate-400 mb-4 uppercase">Student Database</h2>
+            <div id="admin-list" class="space-y-3"></div>
         </div>
 
     </main>
 
-    <div id="qrModal">
-        <div class="bg-white rounded-[45px] p-10 max-w-[360px] w-full text-center shadow-[0_0_50px_rgba(255,255,255,0.2)]">
-            <h3 class="text-[10px] font-black text-purple-700 uppercase mb-5 tracking-[4px]">Pay Enrollment Fee</h3>
-            <div class="bg-slate-50 p-5 rounded-[40px] border-2 border-slate-100 mb-6 shadow-inner">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9795204210@axl%26pn=Abhay%20Sir%26am=1%26cu=INR" class="w-52 h-52 mx-auto rounded-3xl shadow-lg">
-                <p class="text-[12px] font-black text-slate-800 mt-4 underline decoration-purple-400">9795204210@axl</p>
-                <p class="text-[8px] text-slate-400 font-bold uppercase mt-1">Abhay Sir - Creator Hybrid</p>
-            </div>
-            <div class="text-left space-y-2 mb-6">
-                <label class="text-[10px] font-black text-slate-400 uppercase ml-2">Enter Transaction ID (UTR)</label>
-                <input type="text" id="utr_input" maxlength="12" placeholder="0000 0000 0000" class="input-field text-center bg-purple-50 border-purple-100 text-lg font-mono">
-            </div>
-            <button onclick="finalizeAdmission()" class="w-full bg-purple-700 text-white py-5 rounded-2xl font-black uppercase shadow-2xl active:scale-95 transition-all">Verify & Join <i class="fas fa-check-circle ml-2"></i></button>
-        </div>
-    </div>
-
     <script>
         const MASTER_PASS = "Abhay@1234";
-        const ADMIN_WA = "919795204210";
         let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
         let tempPhoto = "";
 
-        // --- BRAIN OF NAVIGATION ---
         function showPage(pageId) {
             document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
-            const targetPage = document.getElementById('page-' + pageId);
-            if(targetPage) targetPage.classList.remove('hidden');
-
+            document.getElementById('page-' + pageId).classList.remove('hidden');
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.add('text-slate-400'));
-            
-            const activeBtn = document.getElementById('t-' + pageId);
-            if(activeBtn) {
-                activeBtn.classList.add('active-tab');
-                activeBtn.classList.remove('text-slate-400');
-            }
+            document.getElementById('t-' + pageId).classList.add('active-tab');
             if(pageId === 'panel') renderAdmin();
         }
 
-        function changePage(pageId) {
-            showPage(pageId);
-            history.pushState({ page: pageId }, "", "#" + pageId);
-        }
-
-        window.onpopstate = function(event) {
-            if (event.state && event.state.page) {
-                showPage(event.state.page);
-            } else {
-                showPage('reg');
-            }
-        };
-
-        window.onload = function() {
-            const initialPage = window.location.hash.replace('#', '') || 'reg';
-            history.replaceState({ page: initialPage }, "", "#" + initialPage);
-            showPage(initialPage);
-        };
-        // ---------------------------
-
-        function togglePass(id) {
-            const el = document.getElementById(id);
-            el.type = el.type === "password" ? "text" : "password";
-        }
+        function changePage(pageId) { showPage(pageId); }
 
         function previewImage(input) {
             if (input.files && input.files[0]) {
@@ -217,53 +127,38 @@
 
         document.getElementById('regForm').onsubmit = function(e) {
             e.preventDefault();
-            window.activeStu = {
+            const s = {
                 name: document.getElementById('stu_name').value,
                 class: document.getElementById('stu_class').value,
                 mobile: document.getElementById('stu_mobile').value,
                 pass: document.getElementById('stu_pass').value,
-                photo: tempPhoto,
-                regDate: new Date().toLocaleDateString()
+                photo: tempPhoto || 'https://via.placeholder.com/150'
             };
-            document.getElementById('qrModal').style.display = "flex";
-        };
-
-        function finalizeAdmission() {
-            const utr = document.getElementById('utr_input').value;
-            if(utr.length < 12) { alert("Invalid 12-digit UTR!"); return; }
-            if(db.find(x => x.utr === utr)) { alert("UTR already used!"); return; }
-
-            window.activeStu.utr = utr;
-            db.push({...window.activeStu});
+            db.push(s);
             localStorage.setItem('ch_pro_db', JSON.stringify(db));
-            
-            document.getElementById('qrModal').style.display = "none";
-            document.getElementById('regForm').reset();
-            
-            const msg = `*CREATOR HYBRID ADMISSION*%0A------------------------%0A*Name:* ${window.activeStu.name}%0A*Class:* ${window.activeStu.class}%0A*UTR:* ${utr}%0A*Mobile:* ${window.activeStu.mobile}`;
-            window.open(`https://wa.me/${ADMIN_WA}?text=${msg}`, '_blank');
-            
-            alert("Application Submitted Successfully!");
+            alert("Admission Done! Now login to see ID Card.");
+            document.getElementById('login_mob').value = s.mobile;
+            document.getElementById('login_pass').value = s.pass;
             changePage('student');
-        }
+        };
 
         function studentLogin() {
             const m = document.getElementById('login_mob').value;
             const p = document.getElementById('login_pass').value;
             const s = db.find(x => x.mobile === m && x.pass === p);
-            if(!s) { alert("Invalid Credentials!"); return; }
-
+            if(!s) { alert("Wrong details!"); return; }
             document.getElementById('id-n').innerText = s.name.toUpperCase();
-            document.getElementById('id-c').innerText = "Class: " + s.class;
-            document.getElementById('id-m').innerText = s.mobile;
-            document.getElementById('id-p').src = s.photo || 'https://via.placeholder.com/150';
+            document.getElementById('id-c').innerText = "CLASS: " + s.class;
+            document.getElementById('id-m').innerText = "MOB: " + s.mobile;
+            document.getElementById('id-p').src = s.photo;
             document.getElementById('id-container').classList.remove('hidden');
+            document.getElementById('login-box').classList.add('hidden');
         }
 
         function downloadID() {
             html2canvas(document.getElementById('idCard')).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `ID_${document.getElementById('id-n').innerText}.png`;
+                link.download = `Student_ID.png`;
                 link.href = canvas.toDataURL();
                 link.click();
             });
@@ -271,28 +166,25 @@
 
         function adminLogin() {
             if(document.getElementById('adm_pass').value === MASTER_PASS) changePage('panel');
-            else alert("Access Denied!");
+            else alert("Error!");
         }
 
         function renderAdmin() {
             const list = document.getElementById('admin-list');
-            list.innerHTML = db.length === 0 ? "<p class='text-center py-20 text-slate-400 text-xs italic uppercase tracking-widest'>No records in database</p>" : 
+            list.innerHTML = db.length === 0 ? "Empty" : 
             db.map((s, i) => `
-                <div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border border-slate-100 group">
-                    <div class="flex items-center gap-4">
-                        <img src="${s.photo || 'https://via.placeholder.com/50'}" class="w-12 h-12 rounded-xl object-cover border-2 border-slate-50 shadow-sm">
-                        <div>
-                            <p class="text-[12px] font-black uppercase text-slate-800">${s.name}</p>
-                            <p class="text-[9px] text-blue-600 font-bold italic tracking-tighter">UTR: ${s.utr}</p>
-                        </div>
+                <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <img src="${s.photo}" class="w-10 h-10 rounded-lg object-cover">
+                        <p class="text-[11px] font-bold">${s.name}</p>
                     </div>
-                    <button onclick="deleteEntry(${i})" class="w-10 h-10 text-red-100 hover:text-red-500 transition-all"><i class="fas fa-trash-alt"></i></button>
+                    <button onclick="deleteEntry(${i})" class="text-red-300"><i class="fas fa-trash"></i></button>
                 </div>
             `).join('');
         }
 
-        function deleteEntry(i) { if(confirm("Permanently delete this student?")) { db.splice(i,1); localStorage.setItem('ch_pro_db', JSON.stringify(db)); renderAdmin(); } }
-        function resetData() { if(confirm("Wipe entire database?")) { localStorage.clear(); db = []; changePage('admin'); } }
+        function deleteEntry(i) { db.splice(i,1); localStorage.setItem('ch_pro_db', JSON.stringify(db)); renderAdmin(); }
+        window.onload = () => showPage('reg');
     </script>
 </body>
 </html>
