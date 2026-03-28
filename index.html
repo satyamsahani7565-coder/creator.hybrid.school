@@ -3,185 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator Hybrid School | Elite Portal</title>
+    <title>Creator Hybrid School | Elite Web Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
         :root { --pw-blue: #1b1e2e; --pw-accent: #5a4bda; --gold: #fbbf24; }
-        body { background-color: #f0f4f9; font-family: 'Inter', sans-serif; color: #1e293b; }
+        body { background-color: #f8fafc; font-family: 'Inter', sans-serif; color: #1e293b; overflow-x: hidden; }
         .pw-gradient { background: linear-gradient(135deg, #1b1e2e 0%, #3d4465 100%); }
-        .active-tab { background: var(--pw-accent); color: white !important; box-shadow: 0 10px 20px rgba(90, 75, 218, 0.3); }
-        .glass-card { background: white; border-radius: 28px; border: 1px solid #e2e8f0; overflow: hidden; }
-        .topper-star { background: linear-gradient(to bottom, #1b1e2e, #2d3436); border: 2px solid var(--gold); position: relative; }
-        .input-pw { width: 100%; padding: 16px 16px 16px 48px; border: 2px solid #f1f5f9; border-radius: 20px; transition: 0.3s; background: #f8fafc; font-weight: 600; }
+        
+        /* Side Menu Animation */
+        #sideMenu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; }
+        .menu-open { transform: translateX(0) !important; }
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 999; }
+        
+        .input-pw { width: 100%; padding: 12px 12px 12px 40px; border: 2px solid #f1f5f9; border-radius: 15px; transition: 0.3s; background: #f8fafc; font-weight: 600; font-size: 13px; }
         .input-pw:focus { border-color: var(--pw-accent); outline: none; background: white; }
-        #idCard { width: 340px; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        
+        /* New Feature Card Style */
+        .feature-card { background: white; border-radius: 20px; padding: 20px; border: 1px solid #edf2f7; display: flex; align-items: flex-start; gap: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); }
+        .feature-icon { width: 50px; h-50px; border-radius: 15px; background: #f0f4f9; color: var(--pw-accent); display: flex; items-center justify-center; text-xl flex-shrink-0; }
+        
+        #idCard { width: 320px; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        
+        marquee { background: #fee2e2; color: #dc2626; font-size: 10px; font-weight: 800; padding: 5px; border-radius: 8px; margin-bottom: 15px; display: block; }
     </style>
 </head>
-<body class="pb-24">
+<body>
 
-    <header class="pw-gradient text-white pt-16 pb-32 px-6 text-center rounded-b-[60px] shadow-2xl relative">
-        <div class="relative z-10">
-            <h1 class="text-3xl font-black tracking-tighter uppercase italic">Creator Hybrid School</h1>
-            <p class="text-indigo-300 text-[10px] font-bold tracking-[4px] uppercase mt-2 italic">Result Bolta Hai Hum Nahi...</p>
+    <div id="menuOverlay" class="overlay" onclick="toggleMenu()"></div>
+
+    <div class="fixed top-0 left-0 w-full h-16 pw-gradient flex items-center justify-between px-6 z-[90] shadow-lg">
+        <button onclick="toggleMenu()" class="text-white text-2xl">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="text-white font-black italic tracking-tighter text-lg">CREATOR HYBRID</h1>
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-yellow-400 border border-white/20">
+            <i class="fas fa-school"></i>
         </div>
-    </header>
+    </div>
 
-    <nav class="mx-auto max-w-sm -mt-14 px-4 sticky top-6 z-50">
-        <div class="bg-white/95 backdrop-blur-xl p-2 rounded-[30px] shadow-2xl flex gap-1 border border-white">
-            <button onclick="changePage('toppers')" id="t-toppers" class="flex-1 py-4 rounded-2xl font-black text-[10px] active-tab uppercase">Wall of Fame</button>
-            <button onclick="changePage('reg')" id="t-reg" class="flex-1 py-4 rounded-2xl font-black text-[10px] text-slate-400 uppercase">Enroll</button>
-            <button onclick="changePage('student')" id="t-student" class="flex-1 py-4 rounded-2xl font-black text-[10px] text-slate-400 uppercase">My Card</button>
-            <button onclick="changePage('admin')" id="t-admin" class="flex-1 py-4 rounded-2xl font-black text-[10px] text-slate-400 uppercase">Admin</button>
+    <div id="sideMenu" class="fixed top-0 left-0 h-full w-72 bg-white shadow-2xl -translate-x-full">
+        <div class="pw-gradient p-8 text-white relative overflow-hidden">
+            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-3xl mb-4 border border-white/30 relative z-10">
+                <i class="fas fa-id-card-alt text-yellow-400"></i>
+            </div>
+            <h3 class="font-black text-lg relative z-10">Creator Portal</h3>
+            <p class="text-[10px] opacity-70 uppercase tracking-widest font-bold relative z-10">Academic v3.0 | Abhay Sir</p>
         </div>
-    </nav>
-
-    <main class="p-6 max-w-lg mx-auto">
-
-        <div id="page-toppers" class="mt-4 space-y-6">
-            <div class="text-center">
-                <h2 class="text-xl font-black text-slate-800 italic uppercase">Wall of Fame 🏆</h2>
-                <p class="text-[9px] font-bold text-indigo-600 tracking-widest uppercase">Our Pride & Achievements</p>
-            </div>
-
-            <div class="topper-star p-6 rounded-[35px] text-center shadow-2xl">
-                <div class="absolute top-0 right-0 bg-yellow-400 text-slate-900 px-4 py-1 rounded-bl-2xl font-black text-[9px]">STAR OF CREATOR</div>
-                <img src="https://via.placeholder.com/120" class="w-28 h-28 mx-auto rounded-[30px] border-4 border-yellow-400 mb-4 object-cover shadow-2xl">
-                <h3 class="text-yellow-400 font-black text-2xl tracking-tight uppercase leading-none">ANISH SAHANI</h3>
-                <p class="text-white text-xs font-bold mt-2">12th Class | <span class="text-yellow-400">93.6%</span> (2023)</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-white p-4 rounded-3xl border border-indigo-50 shadow-sm text-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 mx-auto rounded-full mb-2 border-2 border-indigo-50">
-                    <h4 class="text-[11px] font-black text-slate-800 uppercase leading-none">ANJALI CHAURASIYA</h4>
-                    <p class="text-[9px] font-bold text-indigo-600 italic">10th | 92.5%</p>
-                </div>
-                <div class="bg-white p-4 rounded-3xl border border-indigo-50 shadow-sm text-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 mx-auto rounded-full mb-2 border-2 border-indigo-50">
-                    <h4 class="text-[11px] font-black text-slate-800 uppercase leading-none">SHARDANAND</h4>
-                    <p class="text-[9px] font-bold text-indigo-600 italic">12th | 92.2%</p>
-                </div>
-            </div>
-
-            <div class="glass-card p-6 bg-slate-900 text-white relative">
-                <h4 class="text-xs font-black uppercase text-yellow-400 mb-2">Excellent Features</h4>
-                <ul class="text-[10px] space-y-2 font-bold opacity-90">
-                    <li><i class="fas fa-check text-green-400 mr-2"></i> Digital Board & A/C Classrooms</li>
-                    <li><i class="fas fa-check text-green-400 mr-2"></i> Free Library & CCTV Security</li>
-                    <li><i class="fas fa-check text-green-400 mr-2"></i> Experienced Teachers</li>
-                </ul>
-            </div>
+        <nav class="p-4 space-y-1">
+            <button onclick="changePage('features')" class="w-full text-left p-4 rounded-xl font-bold text-indigo-700 bg-indigo-50 flex items-center gap-3"><i class="fas fa-university"></i> Home & Features</button>
+            <button onclick="changePage('reg')" class="w-full text-left p-4 rounded-xl font-bold text-slate-600 hover:bg-slate-50 flex items-center gap-3"><i class="fas fa-user-plus"></i> Free Admission</button>
+            <button onclick="changePage('student')" class="w-full text-left p-4 rounded-xl font-bold text-slate-600 hover:bg-slate-50 flex items-center gap-3"><i class="fas fa-fingerprint"></i> Student ID</button>
+            <hr class="my-4 opacity-50">
+            <button onclick="changePage('admin')" class="w-full text-left p-4 rounded-xl font-bold text-red-500 hover:bg-red-50 flex items-center gap-3"><i class="fas fa-shield-alt"></i> Director Access</button>
+        </nav>
+        <div class="absolute bottom-6 left-0 w-full px-6 text-center text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+            Campierganj, Gorakhpur
         </div>
+    </div>
 
-        <div id="page-reg" class="hidden glass-card shadow-2xl mt-4 border-none">
-            <div class="pw-gradient p-6 text-center">
-                <h2 class="text-white text-xl font-black italic tracking-tight uppercase">New Admission</h2>
-                <p class="text-indigo-200 text-[9px] font-bold uppercase tracking-[3px] mt-1 italic">Hindi & English Medium</p>
-            </div>
-
-            <form id="regForm" class="p-8 space-y-6">
-                <div class="flex flex-col items-center mb-2">
-                    <div class="relative group">
-                        <div class="w-28 h-28 rounded-[35px] border-4 border-dashed border-indigo-100 bg-slate-50 flex items-center justify-center overflow-hidden transition-all shadow-inner">
-                            <input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewImage(this)">
-                            <img id="preview" class="hidden w-full h-full object-cover">
-                            <i id="upload-icon" class="fas fa-camera-retro text-3xl text-slate-300"></i>
-                        </div>
+    <main class="mt-20 p-6 max-w-lg mx-auto">
+        
+        <div id="page-features" class="space-y-8">
+            <marquee scrollamount="5">🚀 Admission Open 2026-27 for 9th to 12th | Digital Boards | A/C Classrooms | Limited Seats!</marquee>
+            
+            <div class="bg-white p-6 rounded-[30px] shadow-lg border border-indigo-50">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xl">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black text-slate-800 leading-none">Wall of Fame</h2>
+                        <p class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest mt-1">Our Toppers Speak for Us</p>
                     </div>
                 </div>
 
                 <div class="space-y-4">
-                    <div class="relative">
-                        <i class="fas fa-user-circle absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                        <input type="text" id="stu_name" placeholder="Full Name" class="input-pw" required>
+                    <div class="bg-slate-900 p-6 rounded-2xl text-center border-2 border-yellow-400 shadow-xl relative overflow-hidden">
+                        <div class="absolute -top-1 -right-1 bg-yellow-400 text-slate-900 px-3 py-1 rounded-bl-xl font-black text-[9px]">STAR OF CREATOR</div>
+                        <img src="https://via.placeholder.com/120" class="w-20 h-20 mx-auto rounded-2xl border-4 border-yellow-400 mb-3 object-cover shadow-2xl">
+                        <h3 class="text-yellow-400 font-black text-lg uppercase tracking-tight">ANISH SAHANI</h3>
+                        <p class="text-white text-[10px] font-bold">12th Class | <span class="text-yellow-400">93.6%</span> (2023)</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="relative">
-                            <i class="fas fa-graduation-cap absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                            <select id="stu_class" class="input-pw appearance-none" required>
-                                <option value="">Class</option>
-                                <option>9th</option><option>10th</option><option>11th</option><option>12th</option>
-                            </select>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 text-center">
+                            <img src="https://via.placeholder.com/80" class="w-14 h-14 mx-auto rounded-full mb-2 border border-white">
+                            <h4 class="text-[10px] font-black text-slate-800">ANJALI CHAURASIYA</h4>
+                            <p class="text-[9px] font-bold text-indigo-600 italic">10th | 92.5%</p>
                         </div>
-                        <div class="relative">
-                            <i class="fas fa-phone-alt absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                            <input type="tel" id="stu_mobile" placeholder="Mobile" class="input-pw" required>
+                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 text-center">
+                            <img src="https://via.placeholder.com/80" class="w-14 h-14 mx-auto rounded-full mb-2 border border-white">
+                            <h4 class="text-[10px] font-black text-slate-800">SHARDANAND</h4>
+                            <p class="text-[9px] font-bold text-indigo-600 italic">12th | 92.2%</p>
                         </div>
-                    </div>
-                    <div class="relative">
-                        <i class="fas fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                        <input type="password" id="stu_pass" placeholder="Create Password" class="input-pw" required>
                     </div>
                 </div>
+            </div>
 
-                <button type="submit" class="w-full bg-indigo-600 text-white py-5 rounded-[22px] font-black uppercase tracking-widest shadow-xl active:scale-95 transition-all mt-4">
-                    Submit Admission <i class="fas fa-arrow-right ml-2 text-yellow-400"></i>
-                </button>
-            </form>
+            <div class="space-y-5">
+                <div class="text-left">
+                    <h2 class="text-2xl font-black text-slate-800 uppercase italic leading-none">Why Choose Us?</h2>
+                    <p class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mt-1">Our Excellent Facilities</p>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-desktop"></i></div>
+                        <div>
+                            <p class="text-xs font-black">हाई-टेक डिजिटल बोर्ड्स</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed mt-0.5">सभी क्लासरूम्स डिजिटल बोर्ड और दृश्य-श्रव्य (Audio-Visual) तकनीकों से लैस हैं ताकि पढ़ाई बोझिल न लगे।</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-snowflake"></i></div>
+                        <div>
+                            <p class="text-xs font-black">पूर्णतया A/C क्लासरूम्स</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed mt-0.5">चिलचिलाती गर्मी में भी एकाग्र होकर पढ़ने के लिए ठंडा और शांत वातावरण उपलब्ध।</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-book-reader"></i></div>
+                        <div>
+                            <p class="text-xs font-black">छात्रों के लिए निःशुल्क लाइब्रेरी</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed mt-0.5">हज़ारों संदर्भ पुस्तकें, प्रतियोगी परीक्षाओं का स्टडी मटेरियल और शांत रीडिंग रूम का एक्सेस बिल्कुल फ्री।</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div>
+                            <p class="text-xs font-black">24/7 CCTV सर्विलांस</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed mt-0.5">स्कूल परिसर और क्लासरूम्स में सुरक्षा और अनुशासन बनाए रखने के लिए चौबीसों घंटे कैमरे की नज़र।</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <div>
+                            <p class="text-xs font-black">अनुभवी और विशेषज्ञ शिक्षक</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed mt-0.5">IIT, NIT और शीर्ष संस्थानों से पढ़े हुए शिक्षकों का ग्रुप, जो कॉन्सेप्ट क्लियर करने में माहिर हैं।</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-tasks"></i></div>
+                        <div>
+                            <p class="text-xs font-black">हर महीने टेस्ट और प्रोग्रेस रिपोर्ट</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed mt-0.5">हर महीने प्रतियोगी परीक्षाओं के पैटर्न पर टेस्ट लिए जाते हैं और उसकी प्रोग्रेस रिपोर्ट सीधे माता-पिता को व्हाट्सएप पर भेजी जाती है।</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pw-gradient p-7 rounded-[30px] text-white relative overflow-hidden shadow-xl border border-indigo-200/20">
+                <div class="absolute -right-4 top-0 opacity-10"><i class="fas fa-headset text-9xl"></i></div>
+                <h4 class="text-xs font-black uppercase mb-1 flex items-center gap-2 text-yellow-300">
+                    <i class="fas fa-chalkboard-teacher"></i> संदेश : अभय सर
+                </h4>
+                <p class="text-[11px] font-medium leading-relaxed mb-4">"हमारा लक्ष्य सिर्फ सिलेबस पूरा कराना नहीं, बल्कि छात्र की वैचारिक क्षमता को बढ़ाना है। आइए, एक बेहतरीन भविष्य की शुरुआत करें।"</p>
+                <div class="flex justify-between items-center bg-white/10 p-3 rounded-xl border border-white/20">
+                    <div>
+                        <p class="text-[9px] text-slate-300">Call Director Abhay Sir</p>
+                        <p class="text-[11px] font-black tracking-widest text-white">9455731026</p>
+                    </div>
+                    <a href="tel:9455731026" class="bg-emerald-500 text-white p-3 rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div id="page-student" class="hidden glass-card p-8 mt-4 text-center shadow-xl">
-            <div id="login-box" class="space-y-6">
-                <h2 class="text-xl font-black italic uppercase">Student Login</h2>
-                <input type="tel" id="login_mob" placeholder="Mobile Number" class="input-pw !pl-4 text-center">
-                <input type="password" id="login_pass" placeholder="Password" class="input-pw !pl-4 text-center">
-                <button onclick="studentLogin()" class="w-full bg-slate-900 text-white py-5 rounded-[22px] font-black uppercase shadow-xl">Get ID Card</button>
+        <div id="page-reg" class="hidden space-y-6">
+            <div class="bg-white p-8 rounded-[35px] shadow-2xl border-t-8 border-indigo-600">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl shadow-inner border border-indigo-100">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-extrabold text-slate-800">Enroll Student</h2>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Hindi & English Medium</p>
+                    </div>
+                </div>
+                <form id="regForm" class="space-y-4">
+                    <div class="flex justify-center mb-4">
+                        <div class="relative w-20 h-20 bg-slate-100 rounded-3xl flex items-center justify-center border-2 border-dashed border-slate-300 overflow-hidden">
+                            <input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 z-10" onchange="previewImage(this)">
+                            <img id="preview" class="hidden w-full h-full object-cover">
+                            <i id="upload-icon" class="fas fa-camera text-slate-300 text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="relative"><i class="fas fa-user absolute left-4 top-4 text-slate-400 text-xs"></i><input type="text" id="stu_name" placeholder="Full Name" class="input-pw" required></div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="relative"><i class="fas fa-male absolute left-4 top-4 text-slate-400 text-xs"></i><input type="text" id="f_name" placeholder="Father's Name" class="input-pw" required></div>
+                        <div class="relative"><i class="fas fa-female absolute left-4 top-4 text-slate-400 text-xs"></i><input type="text" id="m_name" placeholder="Mother's Name" class="input-pw" required></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="relative"><i class="fas fa-calendar absolute left-4 top-4 text-slate-400 text-xs"></i><input type="date" id="stu_dob" class="input-pw" required></div>
+                        <div class="relative"><i class="fas fa-school absolute left-4 top-4 text-slate-400 text-xs"></i>
+                            <select id="stu_class" class="input-pw" required><option value="">Class</option><option>9th</option><option>10th</option><option>11th</option><option>12th</option></select>
+                        </div>
+                    </div>
+                    <div class="relative"><i class="fas fa-phone-alt absolute left-4 top-4 text-slate-400 text-xs"></i><input type="tel" id="stu_mobile" placeholder="Mobile Number" class="input-pw" required></div>
+                    <div class="relative"><i class="fas fa-key absolute left-4 top-4 text-slate-400 text-xs"></i><input type="password" id="stu_pass" placeholder="Create Password" class="input-pw" required></div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg mt-4">Confirm Enrollment</button>
+                    <p class="text-center text-[10px] font-bold text-slate-400">Already a Student? <span class="text-indigo-600 underline cursor-pointer" onclick="changePage('student')">Login Here</span></p>
+                </form>
             </div>
-            
+        </div>
+
+        <div id="page-student" class="hidden space-y-6">
+            <div id="login-box" class="bg-white p-8 rounded-[35px] shadow-2xl text-center">
+                <i class="fas fa-fingerprint text-4xl text-indigo-600 mb-6"></i>
+                <h2 class="text-xl font-black italic uppercase text-slate-800 mb-6">Student Login</h2>
+                <input type="tel" id="login_mob" placeholder="Registered Mobile" class="input-pw !pl-4 text-center mb-4">
+                <input type="password" id="login_pass" placeholder="Password" class="input-pw !pl-4 text-center mb-6">
+                <button onclick="studentLogin()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase shadow-xl">Get ID Card</button>
+            </div>
             <div id="id-container" class="hidden flex flex-col items-center">
-                <div id="idCard" class="text-left bg-white">
-                    <div class="pw-gradient p-7 text-white">
-                        <h4 class="font-black text-xl italic leading-none">CREATOR HYBRID</h4>
-                        <p class="text-[8px] font-bold text-yellow-400 tracking-[3px] uppercase mt-1">Sufi Complex, Campierganj</p>
+                <div id="idCard">
+                    <div class="pw-gradient p-6 text-white text-center">
+                        <h4 class="font-black italic text-lg leading-none">CREATOR HYBRID SCHOOL</h4>
+                        <p class="text-[7px] text-yellow-400 uppercase tracking-widest mt-1">Sufi Complex, Campierganj</p>
                     </div>
-                    <div class="p-8 flex items-center gap-6">
-                        <img id="id-p" src="" class="w-24 h-32 rounded-3xl object-cover border-4 border-indigo-50 shadow-2xl">
-                        <div class="space-y-3">
-                            <div><p class="text-[8px] font-bold text-slate-400">STUDENT NAME</p><h3 id="id-n" class="text-lg font-black text-slate-800 uppercase leading-none"></h3></div>
-                            <div><p class="text-[8px] font-bold text-slate-400">ACADEMIC GRADE</p><p id="id-c" class="text-sm font-bold text-indigo-600 italic"></p></div>
-                            <div><p class="text-[8px] font-bold text-slate-400">VERIFIED MOB</p><p id="id-m" class="text-xs font-black text-slate-700"></p></div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 mb-4 border-b pb-4">
+                            <img id="id-p" src="" class="w-20 h-24 rounded-2xl object-cover shadow-lg bg-slate-100">
+                            <div><h3 id="id-n" class="text-sm font-black text-slate-800 uppercase leading-none"></h3><p id="id-c" class="text-[9px] font-bold text-indigo-600 mt-1 italic"></p><p class="text-[8px] font-bold text-slate-400 mt-1">DOB: <span id="id-dob"></span></p></div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-1 text-[8px] font-bold uppercase text-slate-500">
+                            <p>Father: <span id="id-f" class="text-slate-800"></span></p>
+                            <p>Mother: <span id="id-m" class="text-slate-800"></span></p>
+                            <p>Mobile: <span id="id-mob" class="text-slate-800"></span></p>
+                            <p class="text-emerald-600 mt-2 font-black">Status: Verified Official ✅</p>
                         </div>
                     </div>
-                    <div class="px-8 pb-8"><div class="bg-indigo-50 p-2 rounded-xl text-center font-black text-indigo-600 text-[9px] uppercase italic tracking-[2px]">Official Student 2026-27 ✅</div></div>
                 </div>
-                <button onclick="downloadID()" class="mt-8 text-indigo-600 font-black text-xs uppercase border-b-2 border-indigo-600 pb-1 italic">Download Identity Image</button>
+                <button onclick="downloadID()" class="mt-6 text-indigo-600 font-black text-[10px] uppercase border-b-2 border-indigo-600 pb-1 italic">Save Image to Gallery</button>
             </div>
         </div>
 
-        <div id="page-admin" class="hidden glass-card p-10 mt-4 text-center">
-            <h2 class="text-xl font-black mb-6 uppercase">Admin Access</h2>
-            <input type="password" id="adm_pass" placeholder="Enter Secure Pin" class="input-pw !pl-4 text-center mb-6">
-            <button onclick="adminLogin()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold uppercase shadow-lg">Login Dashboard</button>
+        <div id="page-admin" class="hidden text-center space-y-6">
+            <div class="bg-white p-10 rounded-[40px] shadow-2xl border-t-8 border-red-500">
+                <i class="fas fa-lock text-4xl text-red-500 mb-6"></i>
+                <h2 class="text-xl font-black mb-6 uppercase text-red-500">Master Access</h2>
+                <input type="password" id="adm_pass" placeholder="Pin Code" class="input-pw !pl-4 text-center mb-6">
+                <button onclick="adminLogin()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black uppercase shadow-lg">Login</button>
+            </div>
         </div>
 
-        <div id="page-panel" class="hidden glass-card p-6 mt-4 shadow-xl">
-            <div class="flex justify-between items-center mb-6 border-b pb-4">
-                <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest">Enrolled Database</h2>
-                <button onclick="resetData()" class="text-red-500 text-[10px] font-bold uppercase">Clear All</button>
-            </div>
+        <div id="page-panel" class="hidden bg-white p-6 rounded-[35px] shadow-xl">
+            <h2 class="text-xs font-black text-slate-400 uppercase mb-6 border-b pb-2">Student Database</h2>
             <div id="admin-list" class="space-y-3"></div>
+            <button onclick="resetData()" class="w-full mt-6 py-2 text-[9px] font-black text-red-400 uppercase hover:underline">Wipe All Records</button>
         </div>
 
     </main>
 
+    <a href="https://wa.me/919455731026" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-2xl text-2xl z-[80] animate-bounce">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script>
         const MASTER_PASS = "Abhay@1234";
-        const ADMIN_WA = "919455731026"; // आपका नया व्हाट्सएप नंबर
+        const ADMIN_WA = "919455731026";
         let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
         let tempPhoto = "";
 
-        function showPage(pageId) {
-            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById('page-' + pageId).classList.remove('hidden');
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
-            document.getElementById('t-' + pageId).classList.add('active-tab');
-            if(pageId === 'panel') renderAdmin();
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('menu-open');
+            document.getElementById('menuOverlay').classList.toggle('block');
         }
 
-        function changePage(pageId) { showPage(pageId); }
+        function changePage(pageId) {
+            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
+            const targetPage = document.getElementById('page-' + pageId);
+            if(targetPage) targetPage.classList.remove('hidden');
+            if(document.getElementById('sideMenu').classList.contains('menu-open')) toggleMenu();
+            if(pageId === 'panel') renderAdmin();
+            window.scrollTo(0,0);
+        }
 
         function previewImage(input) {
             if (input.files && input.files[0]) {
@@ -200,6 +300,9 @@
             e.preventDefault();
             const s = {
                 name: document.getElementById('stu_name').value,
+                father: document.getElementById('f_name').value,
+                mother: document.getElementById('m_name').value,
+                dob: document.getElementById('stu_dob').value,
                 class: document.getElementById('stu_class').value,
                 mobile: document.getElementById('stu_mobile').value,
                 pass: document.getElementById('stu_pass').value,
@@ -208,8 +311,8 @@
             db.push(s);
             localStorage.setItem('ch_pro_db', JSON.stringify(db));
             
-            // --- WHATSAPP NOTIFICATION TO 9455731026 ---
-            const msg = `*NEW ADMISSION ALERT*%0A------------------------%0A*Student:* ${s.name}%0A*Class:* ${s.class}%0A*Mob:* ${s.mobile}%0A*Status:* FREE ENTRY ✅`;
+            // Send WhatsApp Alert to Director
+            const msg = `*NEW ADMISSION*%0A------------------%0A*Student:* ${s.name}%0A*Class:* ${s.class}%0A*Mob:* ${s.mobile}%0A*Status:* FREE REGISTRATION ✅`;
             window.open(`https://wa.me/${ADMIN_WA}?text=${msg}`, '_blank');
 
             alert("Admission Done! Login to see your Card.");
@@ -224,8 +327,11 @@
             const s = db.find(x => x.mobile === m && x.pass === p);
             if(!s) { alert("Wrong Mobile or Password!"); return; }
             document.getElementById('id-n').innerText = s.name;
-            document.getElementById('id-c').innerText = "Class: " + s.class;
-            document.getElementById('id-m').innerText = s.mobile;
+            document.getElementById('id-c').innerText = "Grade: " + s.class;
+            document.getElementById('id-dob').innerText = s.dob;
+            document.getElementById('id-f').innerText = s.father;
+            document.getElementById('id-m').innerText = s.mother;
+            document.getElementById('id-mob').innerText = s.mobile;
             document.getElementById('id-p').src = s.photo;
             document.getElementById('id-container').classList.remove('hidden');
             document.getElementById('login-box').classList.add('hidden');
@@ -234,7 +340,7 @@
         function downloadID() {
             html2canvas(document.getElementById('idCard'), { scale: 3 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `ID_CARD_${document.getElementById('id-n').innerText}.png`;
+                link.download = `CreatorHybrid_ID.png`;
                 link.href = canvas.toDataURL();
                 link.click();
             });
@@ -242,19 +348,19 @@
 
         function adminLogin() {
             if(document.getElementById('adm_pass').value === MASTER_PASS) changePage('panel');
-            else alert("Error!");
+            else alert("Access Denied!");
         }
 
         function renderAdmin() {
             const list = document.getElementById('admin-list');
             list.innerHTML = db.length === 0 ? "<p class='text-center py-10 text-slate-400'>No Records</p>" : 
             db.map((s, i) => `
-                <div class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                    <div class="flex items-center gap-4">
-                        <img src="${s.photo}" class="w-12 h-12 rounded-xl object-cover shadow-sm">
+                <div class="flex justify-between items-center p-3 bg-slate-50 rounded-2xl border border-slate-100 mb-2">
+                    <div class="flex items-center gap-3">
+                        <img src="${s.photo}" class="w-10 h-10 rounded-xl object-cover shadow-sm">
                         <div>
                             <p class="text-[11px] font-black uppercase text-slate-800">${s.name}</p>
-                            <p class="text-[9px] text-indigo-500 font-bold uppercase tracking-tighter">Class: ${s.class}</p>
+                            <p class="text-[9px] text-indigo-600 font-bold uppercase tracking-tighter">${s.class}th Grade</p>
                         </div>
                     </div>
                     <button onclick="deleteEntry(${i})" class="text-red-300 hover:text-red-500 p-2"><i class="fas fa-trash-alt"></i></button>
@@ -265,7 +371,8 @@
         function deleteEntry(i) { if(confirm("Confirm Delete?")) { db.splice(i,1); localStorage.setItem('ch_pro_db', JSON.stringify(db)); renderAdmin(); } }
         function resetData() { if(confirm("Clear Database?")) { localStorage.clear(); db = []; location.reload(); } }
 
-        window.onload = () => showPage('toppers'); // सबसे पहले Toppers वाला पेज खुलेगा
+        // Start at Home/Features
+        window.onload = () => changePage('features');
     </script>
 </body>
 </html>
