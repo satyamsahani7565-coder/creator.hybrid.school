@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator Hybrid School | Elite Web Portal</title>
+    <title>Creator Hybrid School | Professional Student Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -18,9 +18,11 @@
         .input-pw { width: 100%; padding: 12px 12px 12px 40px; border: 2px solid #f1f5f9; border-radius: 15px; transition: 0.3s; background: #f8fafc; font-weight: 600; font-size: 13px; }
         .input-pw:focus { border-color: var(--pw-accent); outline: none; background: white; }
         .feature-card { background: white; border-radius: 20px; padding: 20px; border: 1px solid #edf2f7; display: flex; align-items: flex-start; gap: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); }
-        .feature-icon { width: 50px; h-50px; border-radius: 15px; background: #f0f4f9; color: var(--pw-accent); display: flex; items-center justify-center; text-xl flex-shrink-0; }
+        .feature-icon { width: 50px; height: 50px; border-radius: 15px; background: #f0f4f9; color: var(--pw-accent); display: flex; items-center justify-center; text-xl flex-shrink-0; }
         #idCard { width: 320px; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #eee; }
         marquee { background: #fee2e2; color: #dc2626; font-size: 10px; font-weight: 800; padding: 5px; border-radius: 8px; margin-bottom: 15px; display: block; }
+        .course-card { background: white; border-bottom: 4px solid var(--pw-accent); transition: 0.3s; }
+        .course-card:hover { transform: translateY(-5px); }
     </style>
 </head>
 <body>
@@ -50,50 +52,64 @@
 
     <main class="mt-20 p-6 max-w-lg mx-auto">
         <div id="page-features" class="space-y-8">
-            <marquee scrollamount="5">🚀 New Batch starts from April 2026 | Admission Open for 9th to 12th | Call: 9795204210</marquee>
+            <marquee scrollamount="5">🚀 Result bolta hai hum nahi... Admission open for Session 2026-27 | Limited seats available!</marquee>
             
+            <div class="grid grid-cols-3 gap-2 text-center mb-6">
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100"><p class="text-xl font-black text-indigo-600">500+</p><p class="text-[8px] font-bold uppercase text-slate-400">Selections</p></div>
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100"><p class="text-xl font-black text-indigo-600">10+</p><p class="text-[8px] font-bold uppercase text-slate-400">Expert Staff</p></div>
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100"><p class="text-xl font-black text-indigo-600">100%</p><p class="text-[8px] font-bold uppercase text-slate-400">Result</p></div>
+            </div>
+
             <div class="bg-white p-6 rounded-[30px] shadow-lg border border-indigo-50">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fas fa-trophy"></i></div>
-                    <div><h2 class="text-xl font-black text-slate-800 uppercase italic leading-none">Wall of Fame</h2><p class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest mt-1 uppercase">Our Toppers Speak for Us</p></div>
+                    <div><h2 class="text-xl font-black text-slate-800 uppercase italic leading-none">Wall of Fame</h2><p class="text-[9px] font-bold text-indigo-600 tracking-widest mt-1 uppercase">Our Star Achievers</p></div>
                 </div>
 
                 <div class="space-y-4">
                     <div class="bg-slate-900 p-6 rounded-2xl text-center border-2 border-yellow-400 shadow-xl relative overflow-hidden">
                         <div class="absolute -top-1 -right-1 bg-yellow-400 text-slate-900 px-3 py-1 rounded-bl-xl font-black text-[9px]">STAR OF CREATOR</div>
-                        <img src="https://i.ibb.co/Xf8Y4vN/anish-sahani.png" class="w-20 h-20 mx-auto rounded-2xl border-4 border-yellow-400 mb-3 object-cover shadow-2xl">
+                        <img src="https://i.ibb.co/Xf8Y4vN/anish-sahani.png" class="w-20 h-20 mx-auto rounded-2xl border-4 border-yellow-400 mb-3 object-cover shadow-2xl" alt="Anish Sahani">
                         <h3 class="text-yellow-400 font-black text-lg uppercase leading-none">ANISH SAHANI</h3>
                         <p class="text-white text-[10px] font-bold italic mt-2">12th Grade | 93.6% (2023)</p>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 text-center"><h4 class="text-[10px] font-black text-slate-800 uppercase">ANJALI CHAURASIYA</h4><p class="text-[9px] font-bold text-indigo-600 italic">10th | 92.5%</p></div>
-                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 text-center"><h4 class="text-[10px] font-black text-slate-800 uppercase">SHARDANAND</h4><p class="text-[9px] font-bold text-indigo-600 italic">12th | 92.2%</p></div>
+                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 text-center"><h4 class="text-[10px] font-black text-slate-800 uppercase leading-tight">ANJALI CHAURASIYA</h4><p class="text-[9px] font-bold text-indigo-600 italic">10th | 92.5%</p></div>
+                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 text-center"><h4 class="text-[10px] font-black text-slate-800 uppercase leading-tight">SHARDANAND</h4><p class="text-[9px] font-bold text-indigo-600 italic">12th | 92.2%</p></div>
                     </div>
                 </div>
             </div>
 
             <div class="space-y-4">
-                <div class="feature-card"><div class="feature-icon"><i class="fas fa-desktop"></i></div><div><p class="text-xs font-black uppercase tracking-tight">Digital Board Classes</p><p class="text-[10px] text-slate-400">Smart learning for 9th-12th Students.</p></div></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fas fa-snowflake"></i></div><div><p class="text-xs font-black uppercase tracking-tight">Full A/C Classroom</p><p class="text-[10px] text-slate-400">Stay cool and focused while studying.</p></div></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fas fa-book-reader"></i></div><div><p class="text-xs font-black uppercase tracking-tight">Free Library Access</p><p class="text-[10px] text-slate-400">Exclusive reading room for our learners.</p></div></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><div><p class="text-xs font-black uppercase tracking-tight">CCTV Security</p><p class="text-[10px] text-slate-400">24/7 monitoring for safety.</p></div></div>
+                <h2 class="text-xl font-black text-slate-800 uppercase italic leading-none ml-2">Available Batches</h2>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="course-card p-4 rounded-2xl shadow-sm text-center"><p class="text-xs font-black text-indigo-600">CLASS 9th & 10th</p><p class="text-[8px] font-bold text-slate-400 uppercase mt-1">Foundation Batch</p></div>
+                    <div class="course-card p-4 rounded-2xl shadow-sm text-center"><p class="text-xs font-black text-indigo-600">CLASS 11th & 12th</p><p class="text-[8px] font-bold text-slate-400 uppercase mt-1">Advanced Board Batch</p></div>
+                </div>
             </div>
+
+            <div class="space-y-4">
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-desktop"></i></div><div><p class="text-xs font-black uppercase tracking-tight">Digital Board Classes</p><p class="text-[9px] text-slate-400">Audio-Visual learning for deeper understanding.</p></div></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-snowflake"></i></div><div><p class="text-xs font-black uppercase tracking-tight">Full A/C Campus</p><p class="text-[9px] text-slate-400">Study in comfort even in extreme summers.</p></div></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-book-reader"></i></div><div><p class="text-xs font-black uppercase tracking-tight">Free Library Access</p><p class="text-[9px] text-slate-400">Dedicated silent reading space for students.</p></div></div>
+            </div>
+
             <div class="pw-gradient p-7 rounded-[30px] text-white shadow-xl relative overflow-hidden">
                 <div class="absolute -right-4 top-0 opacity-10"><i class="fas fa-chalkboard-teacher text-9xl"></i></div>
                 <h4 class="text-[10px] font-black uppercase text-yellow-300 mb-2 italic tracking-widest">DIRECTOR: ABHAY SIR</h4>
-                <p class="text-[11px] font-medium leading-relaxed mb-4 italic italic">"Result Bolta Hai Hum Nahi. Best-in-class facilities for your bright future."</p>
-                <a href="tel:9795204210" class="bg-emerald-500 text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-black uppercase text-[10px] tracking-widest shadow-lg"><i class="fas fa-phone"></i> Call 9795204210</a>
+                <p class="text-[11px] font-medium leading-relaxed mb-4 italic italic">"Hamara lakshya har bacche ko board topper banana hai. Enroll today!"</p>
+                <a href="tel:9795204210" class="bg-emerald-500 text-white w-full py-4 rounded-2xl flex items-center justify-center gap-2 font-black uppercase text-[10px] tracking-widest shadow-lg active:scale-95 transition-all"><i class="fas fa-phone"></i> Contact Director</a>
             </div>
         </div>
 
         <div id="page-reg" class="hidden glass-card shadow-2xl border-none">
             <div class="pw-gradient p-6 text-center text-white"><h2 class="text-xl font-black italic uppercase">Enroll Student</h2></div>
             <form id="regForm" class="p-8 space-y-4">
-                <div class="flex justify-center mb-4"><div class="relative w-20 h-20 bg-slate-50 rounded-[25px] flex items-center justify-center border-2 border-dashed border-slate-200 overflow-hidden"><input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 z-10" onchange="previewImage(this)"><img id="preview" class="hidden w-full h-full object-cover"><i id="upload-icon" class="fas fa-camera text-slate-200"></i></div></div>
+                <div class="flex justify-center mb-4"><div class="relative w-20 h-20 bg-slate-50 rounded-[25px] flex items-center justify-center border-2 border-dashed border-slate-200 overflow-hidden"><input type="file" id="stu_photo" accept="image/*" class="absolute inset-0 opacity-0 z-10" onchange="previewImage(this)"><img id="preview" class="hidden w-full h-full object-cover"><i id="upload-icon" class="fas fa-camera text-slate-200 text-2xl"></i></div></div>
                 <div class="relative"><i class="fas fa-user absolute left-4 top-4 text-slate-400 text-xs"></i><input type="text" id="stu_name" placeholder="Student Name" class="input-pw" required></div>
                 <div class="grid grid-cols-2 gap-3"><input type="text" id="f_name" placeholder="Father's Name" class="input-pw !pl-4" required><input type="text" id="m_name" placeholder="Mother's Name" class="input-pw !pl-4" required></div>
-                <div class="grid grid-cols-2 gap-3"><input type="date" id="stu_dob" class="input-pw !pl-4" required><select id="stu_class" class="input-pw !pl-4" required><option value="">Class</option><option>9th</option><option>10th</option><option>11th</option><option>12th</option></select></div>
+                <div class="grid grid-cols-2 gap-3"><input type="date" id="stu_dob" class="input-pw !pl-4 text-slate-500" required><select id="stu_class" class="input-pw !pl-4 text-slate-500" required><option value="">Class</option><option>9th</option><option>10th</option><option>11th</option><option>12th</option></select></div>
                 <div class="relative"><i class="fas fa-phone-alt absolute left-4 top-4 text-slate-400 text-xs"></i><input type="tel" id="stu_mobile" placeholder="Mobile No." class="input-pw" required></div>
                 <div class="relative"><i class="fas fa-key absolute left-4 top-4 text-slate-400 text-xs"></i><input type="password" id="stu_pass" placeholder="Create Password" class="input-pw" required></div>
                 <button type="submit" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg mt-4">Confirm Admission</button>
@@ -101,54 +117,50 @@
         </div>
 
         <div id="page-student" class="hidden bg-white p-8 rounded-[35px] shadow-2xl text-center">
-            <h2 class="text-xl font-black italic uppercase mb-6 text-slate-800">Student Login</h2>
+            <h2 class="text-xl font-black italic uppercase mb-6 text-slate-800">Student Portal</h2>
             <input type="tel" id="login_mob" placeholder="Mobile" class="input-pw !pl-4 text-center mb-4"><input type="password" id="login_pass" placeholder="Password" class="input-pw !pl-4 text-center mb-6"><button onclick="studentLogin()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase shadow-xl">Get ID Card</button>
             <div id="id-container" class="hidden flex flex-col items-center mt-8">
-                <div id="idCard" class="text-left"><div class="pw-gradient p-6 text-white text-center"><h4 class="font-black italic">CREATOR HYBRID SCHOOL</h4></div><div class="p-6 flex items-center gap-4 border-b"><img id="id-p" src="" class="w-20 h-24 rounded-2xl object-cover shadow-md"><div class="space-y-1"><h3 id="id-n" class="text-sm font-black uppercase"></h3><p id="id-c" class="text-[9px] font-bold text-indigo-600 italic"></p><p class="text-[8px] font-bold text-slate-400 mt-1 uppercase">DOB: <span id="id-dob"></span></p></div></div><div class="p-6 space-y-2 text-[8px] font-bold uppercase text-slate-500"><p>Father: <span id="id-f" class="text-slate-800"></span></p><p>Mobile: <span id="id-mob" class="text-slate-800"></span></p><p class="text-emerald-600 font-black mt-2 italic">Verified Official ✅</p></div></div><button onclick="downloadID()" class="mt-6 text-indigo-600 font-black text-[10px] uppercase border-b-2 border-indigo-600 pb-1 italic">Download ID Card Image</button>
+                <div id="idCard" class="text-left border border-slate-100 shadow-2xl"><div class="pw-gradient p-6 text-white text-center"><h4 class="font-black italic">CREATOR HYBRID SCHOOL</h4><p class="text-[7px] text-yellow-400 uppercase tracking-widest mt-1">Official ID 2026-27</p></div><div class="p-6 flex items-center gap-4 border-b"><img id="id-p" src="" class="w-20 h-24 rounded-2xl object-cover shadow-md"><div class="space-y-1"><h3 id="id-n" class="text-sm font-black uppercase"></h3><p id="id-c" class="text-[9px] font-bold text-indigo-600 italic"></p><p class="text-[8px] font-bold text-slate-400 mt-1 uppercase italic">DOB: <span id="id-dob"></span></p></div></div><div class="p-6 space-y-2 text-[8px] font-bold uppercase text-slate-500"><p>Father: <span id="id-f" class="text-slate-800 font-black"></span></p><p>Mother: <span id="id-m" class="text-slate-800 font-black"></span></p><p>Mobile: <span id="id-mob" class="text-slate-800 font-black"></span></p><div class="flex items-center gap-1 text-emerald-600 font-black mt-2 italic"><i class="fas fa-check-circle"></i> VERIFIED STUDENT</div></div></div><button onclick="downloadID()" class="mt-6 text-indigo-600 font-black text-[10px] uppercase border-b-2 border-indigo-600 pb-1 italic">Save Image</button>
             </div>
         </div>
 
-        <div id="page-admin" class="hidden text-center space-y-6"><div class="bg-white p-10 rounded-[40px] shadow-2xl border-t-8 border-red-500"><h2 class="text-xl font-black mb-6 uppercase text-red-500 italic">Director Access</h2><input type="password" id="adm_pass" placeholder="Master Pin" class="input-pw !pl-4 text-center mb-6"><button onclick="adminLogin()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black uppercase shadow-lg">Access Records</button></div></div>
+        <div id="page-admin" class="hidden text-center space-y-6"><div class="bg-white p-10 rounded-[40px] shadow-2xl border-t-8 border-red-500"><h2 class="text-xl font-black mb-6 uppercase text-red-500 italic">Admin Login</h2><input type="password" id="adm_pass" placeholder="Master Pin" class="input-pw !pl-4 text-center mb-6"><button onclick="adminLogin()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black uppercase shadow-lg">Access Database</button></div></div>
         <div id="page-panel" class="hidden bg-white p-6 rounded-[35px] shadow-xl"><h2 class="text-xs font-black text-slate-400 uppercase mb-6 border-b pb-2 tracking-widest">Enrolled Database</h2><div id="admin-list" class="space-y-2"></div><button onclick="resetData()" class="w-full mt-6 py-2 text-[9px] font-black text-red-300 uppercase italic">Wipe All Records</button></div>
 
     </main>
+
+    <footer id="mainFooter" class="bg-slate-900 text-white p-8 mt-12 text-center rounded-t-[40px]">
+        <h4 class="font-black italic text-lg mb-2">CREATOR HYBRID</h4>
+        <p class="text-[9px] text-slate-400 uppercase tracking-widest mb-6 italic">Sufi Complex, Campierganj, Gorakhpur</p>
+        <div class="flex justify-center gap-6 mb-8 text-xl">
+            <a href="#"><i class="fab fa-facebook text-blue-500"></i></a>
+            <a href="#"><i class="fab fa-youtube text-red-500"></i></a>
+            <a href="#"><i class="fab fa-instagram text-pink-500"></i></a>
+        </div>
+        <p class="text-[8px] text-slate-500 font-bold uppercase">© 2026 Developed for Abhay Sir</p>
+    </footer>
 
     <a href="https://wa.me/919795204210" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-2xl text-2xl z-[80] animate-bounce"><i class="fab fa-whatsapp"></i></a>
 
     <script>
         const MASTER_PASS = "Abhay@1234";
-        const ADMIN_WA = "919795204210"; // Updated Admin Number
+        const ADMIN_WA = "919795204210";
         let db = JSON.parse(localStorage.getItem('ch_pro_db')) || [];
         let tempPhoto = "";
 
         function toggleMenu() { document.getElementById('sideMenu').classList.toggle('menu-open'); document.getElementById('menuOverlay').classList.toggle('block'); }
-        function changePage(pageId) { document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden')); document.getElementById('page-' + pageId).classList.remove('hidden'); if(document.getElementById('sideMenu').classList.contains('menu-open')) toggleMenu(); if(pageId === 'panel') renderAdmin(); window.scrollTo(0,0); }
+        function changePage(pageId) { 
+            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden')); 
+            document.getElementById('page-' + pageId).classList.remove('hidden'); 
+            if(document.getElementById('sideMenu').classList.contains('menu-open')) toggleMenu(); 
+            if(pageId === 'panel') renderAdmin();
+            // Show/Hide footer based on page
+            document.getElementById('mainFooter').classList.toggle('hidden', pageId === 'panel' || pageId === 'reg');
+            window.scrollTo(0,0); 
+        }
         function previewImage(input) { if (input.files && input.files[0]) { const reader = new FileReader(); reader.onload = e => { document.getElementById('preview').src = e.target.result; document.getElementById('preview').classList.remove('hidden'); document.getElementById('upload-icon').classList.add('hidden'); tempPhoto = e.target.result; }; reader.readAsDataURL(input.files[0]); } }
-        
-        // Registration with updated number
-        document.getElementById('regForm').onsubmit = function(e) { 
-            e.preventDefault(); 
-            const s = { 
-                name: document.getElementById('stu_name').value, 
-                father: document.getElementById('f_name').value, 
-                mother: document.getElementById('m_name').value, 
-                dob: document.getElementById('stu_dob').value, 
-                class: document.getElementById('stu_class').value, 
-                mobile: document.getElementById('stu_mobile').value, 
-                pass: document.getElementById('stu_pass').value, 
-                photo: tempPhoto || 'https://via.placeholder.com/150' 
-            }; 
-            db.push(s); 
-            localStorage.setItem('ch_pro_db', JSON.stringify(db)); 
-            
-            // Sending WhatsApp notification to 9795204210
-            window.open(`https://wa.me/${ADMIN_WA}?text=*NEW ADMISSION*%0AName: ${s.name}%0AClass: ${s.class}%0AFather: ${s.father}`, '_blank'); 
-            
-            alert("Admission Success!"); 
-            changePage('student'); 
-        };
-
-        function studentLogin() { const m = document.getElementById('login_mob').value; const p = document.getElementById('login_pass').value; const s = db.find(x => x.mobile === m && x.pass === p); if(!s) { alert("Wrong Login!"); return; } document.getElementById('id-n').innerText = s.name; document.getElementById('id-c').innerText = "Grade: " + s.class; document.getElementById('id-dob').innerText = s.dob; document.getElementById('id-f').innerText = s.father; document.getElementById('id-mob').innerText = s.mobile; document.getElementById('id-p').src = s.photo; document.getElementById('id-container').classList.remove('hidden'); document.getElementById('login-box').classList.add('hidden'); }
+        document.getElementById('regForm').onsubmit = function(e) { e.preventDefault(); const s = { name: document.getElementById('stu_name').value, father: document.getElementById('f_name').value, mother: document.getElementById('m_name').value, dob: document.getElementById('stu_dob').value, class: document.getElementById('stu_class').value, mobile: document.getElementById('stu_mobile').value, pass: document.getElementById('stu_pass').value, photo: tempPhoto || 'https://via.placeholder.com/150' }; db.push(s); localStorage.setItem('ch_pro_db', JSON.stringify(db)); window.open(`https://wa.me/${ADMIN_WA}?text=*NEW ADMISSION*%0AName: ${s.name}%0AClass: ${s.class}%0AFather: ${s.father}`, '_blank'); alert("Admission Successful!"); changePage('student'); };
+        function studentLogin() { const m = document.getElementById('login_mob').value; const p = document.getElementById('login_pass').value; const s = db.find(x => x.mobile === m && x.pass === p); if(!s) { alert("Wrong Login!"); return; } document.getElementById('id-n').innerText = s.name; document.getElementById('id-c').innerText = "Grade: " + s.class; document.getElementById('id-dob').innerText = s.dob; document.getElementById('id-f').innerText = s.father; document.getElementById('id-m').innerText = s.mother; document.getElementById('id-mob').innerText = s.mobile; document.getElementById('id-p').src = s.photo; document.getElementById('id-container').classList.remove('hidden'); document.getElementById('login-box').classList.add('hidden'); }
         function downloadID() { html2canvas(document.getElementById('idCard'), { scale: 3 }).then(canvas => { const link = document.createElement('a'); link.download = `ID_CARD.png`; link.href = canvas.toDataURL(); link.click(); }); }
         function adminLogin() { if(document.getElementById('adm_pass').value === MASTER_PASS) changePage('panel'); else alert("Wrong Pin!"); }
         function renderAdmin() { const list = document.getElementById('admin-list'); list.innerHTML = db.length === 0 ? "No Records" : db.map((s, i) => `<div class="flex justify-between items-center p-3 bg-slate-50 rounded-2xl border mb-2"><div class="flex items-center gap-3"><img src="${s.photo}" class="w-10 h-10 rounded-xl object-cover"><div><p class="text-[11px] font-black uppercase">${s.name}</p><p class="text-[9px] text-indigo-600">${s.class}th Grade</p></div></div><button onclick="deleteEntry(${i})" class="text-red-300 p-2"><i class="fas fa-trash-alt"></i></button></div>`).join(''); }
